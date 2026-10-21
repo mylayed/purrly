@@ -1,3 +1,4 @@
+import { queryClient } from '@/api/query-client';
 import { supabase } from '@/api/supabase';
 
 import { signOutFromGoogle } from './google-sign-in';
@@ -20,4 +21,6 @@ export async function signOut() {
   await supabase.auth.signOut();
   // Вихід із Google — не критичний: сесію Supabase вже завершено.
   await signOutFromGoogle().catch(() => {});
+  // Щоб наступний користувач на цьому пристрої не побачив чужих даних.
+  queryClient.clear();
 }

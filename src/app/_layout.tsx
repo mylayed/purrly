@@ -1,11 +1,13 @@
 import '@/i18n';
 
+import { QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
+import { queryClient } from '@/api/query-client';
 import { useAuthDeepLink } from '@/features/auth';
 import { useLanguageSync } from '@/i18n/use-language-sync';
 import { useLanguageStore } from '@/stores/language-store';
@@ -38,9 +40,11 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider>
-      <RootStack />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <RootStack />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
@@ -56,7 +60,7 @@ function RootStack() {
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
         <Stack.Protected guard={signedIn && !recovering} redirectTo={signedIn ? home : '/sign-in'}>
-          <Stack.Screen name="index" />
+          <Stack.Screen name="(tabs)" />
         </Stack.Protected>
         <Stack.Protected guard={recovering} redirectTo={signedIn ? '/' : '/sign-in'}>
           <Stack.Screen name="reset-password" />

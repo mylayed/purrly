@@ -60,7 +60,23 @@
   "account": {
     "title": "Account",
     "signedInAs": "Signed in as {{email}}",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "profile": "Profile",
+    "name": "Name",
+    "namePlaceholder": "What should we call you?",
+    "nameTooLong": "Name must be at most {{count}} characters.",
+    "save": "Save",
+    "saved": "Saved",
+    "changePhoto": "Change photo",
+    "uploading": "Uploading photo…",
+    "photoError": "Couldn't upload the photo. Please try again.",
+    "saveError": "Couldn't save. Check your connection and try again.",
+    "loadError": "Couldn't load your profile.",
+    "retry": "Try again",
+    "preferences": "Preferences",
+    "units": "Weight units",
+    "kg": "kg",
+    "lb": "lb"
   },
   "settings": {
     "theme": {
@@ -74,17 +90,26 @@
       "system": "System"
     }
   },
-  "showcase": {
-    "buttons": "Buttons",
+  "tabs": {
+    "home": "Home",
+    "feed": "Feed",
+    "reminders": "Reminders",
+    "account": "Account"
+  },
+  "home": {
+    "greeting": "Hi, {{name}}!",
+    "greetingNoName": "Hi there!",
+    "emptyTitle": "Your cats will live here",
+    "emptyBody": "Add your first cat to keep its diary: weight, meals, vaccinations.",
     "addCat": "Add a cat",
-    "logWeight": "Log weight",
-    "later": "Later",
-    "statuses": "Statuses",
-    "vaccinated": "Vaccination done",
-    "dewormingSoon_one": "Deworming in {{count}} day",
-    "dewormingSoon_few": "Deworming in {{count}} days",
-    "dewormingSoon_many": "Deworming in {{count}} days",
-    "dewormingSoon_other": "Deworming in {{count}} days",
-    "weightDropped": "Weight dropped by {{percent}}%"
+    "comingSoon": "Cat profiles are coming in the next update."
+  },
+  "feed": {
+    "emptyTitle": "Your feed is empty for now",
+    "emptyBody": "Photos and notes from your cat's day will show up here."
+  },
+  "reminders": {
+    "emptyTitle": "No reminders yet",
+    "emptyBody": "Food, meds, vaccinations, vet visits — we'll remind you on time, without spam."
   }
 }

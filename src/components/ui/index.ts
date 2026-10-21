@@ -1,5 +1,7 @@
+export { Avatar } from './avatar';
 export { Button, type ButtonProps } from './button';
 export { Card } from './card';
+export { EmptyState } from './empty-state';
 export { ErrorBanner } from './error-banner';
 export { Screen } from './screen';
 export { SegmentedControl, type SegmentedOption } from './segmented-control';

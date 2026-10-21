@@ -2,6 +2,7 @@
   "expo": {
     "name": "Purrly",
     "slug": "purrly",
+    "owner": "mylayed",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,11 +38,23 @@
         }
       ],
       "expo-localization",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Purrly uses your photos so you can set a profile picture and add photos of your cats.",
+          "microphonePermission": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d34cd19b-ff44-4298-bfc9-2275c4a89c48"
+      }
     }
   }
 }
