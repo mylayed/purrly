@@ -8,9 +8,12 @@
     "scheme": "purrly",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "bundleIdentifier": "com.mylayed.purrly",
+      "usesAppleSignIn": true,
       "icon": "./assets/expo.icon"
     },
     "android": {
+      "package": "com.mylayed.purrly",
       "adaptiveIcon": {
         "backgroundColor": "#FBF7F2",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

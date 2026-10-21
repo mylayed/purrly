@@ -3,6 +3,48 @@
     "name": "Purrly",
     "tagline": "Cat diary"
   },
+  "auth": {
+    "welcome": "A diary for your cat's health, meals and mood",
+    "continueWithGoogle": "Continue with Google",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "or": "or",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordHint_one": "At least {{count}} character",
+    "passwordHint_few": "At least {{count}} characters",
+    "passwordHint_many": "At least {{count}} characters",
+    "passwordHint_other": "At least {{count}} characters",
+    "checkEmail": {
+      "title": "Check your email",
+      "body": "We sent a message to {{email}}. Follow the link in it to confirm your address. If you open it on another device, come back here after confirming and sign in.",
+      "back": "Back to sign in"
+    },
+    "validation": {
+      "emailInvalid": "That email address doesn't look right.",
+      "passwordTooShort_one": "Password must be at least {{count}} character.",
+      "passwordTooShort_few": "Password must be at least {{count}} characters.",
+      "passwordTooShort_many": "Password must be at least {{count}} characters.",
+      "passwordTooShort_other": "Password must be at least {{count}} characters."
+    },
+    "errors": {
+      "expoGo": "Google sign-in doesn't work in Expo Go — a development build is required.",
+      "notConfigured": "Google sign-in isn't configured yet.",
+      "playServices": "Update Google Play Services and try again.",
+      "invalidCredentials": "Incorrect email or password.",
+      "emailNotConfirmed": "Confirm your email first — follow the link in the message we sent.",
+      "weakPassword": "That password is too weak. Add letters, numbers or symbols.",
+      "invalidEmail": "That email address doesn't look right.",
+      "rateLimit": "Too many attempts. Wait a minute and try again.",
+      "generic": "Couldn't sign in. Please try again."
+    }
+  },
+  "account": {
+    "title": "Account",
+    "signedInAs": "Signed in as {{email}}",
+    "signOut": "Sign out"
+  },
   "settings": {
     "theme": {
       "title": "Theme",

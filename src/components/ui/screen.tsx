@@ -1,5 +1,12 @@
 import type { ReactNode } from 'react';
-import { ScrollView, StyleSheet, View, type ViewStyle } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+  type ViewStyle,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/theme';
@@ -16,11 +23,22 @@ export function Screen({ children, scroll = false, contentStyle }: ScreenProps) 
 
   return (
     <SafeAreaView style={[styles.root, { backgroundColor: colors.bg }]}>
-      {scroll ? (
-        <ScrollView contentContainerStyle={[padding, contentStyle]}>{children}</ScrollView>
-      ) : (
-        <View style={[styles.root, padding, contentStyle]}>{children}</View>
-      )}
+      {/* Щоб поля вводу не ховалися під клавіатурою. */}
+      <KeyboardAvoidingView
+        style={styles.root}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        {scroll ? (
+          <ScrollView
+            contentContainerStyle={[padding, contentStyle]}
+            keyboardShouldPersistTaps="handled"
+          >
+            {children}
+          </ScrollView>
+        ) : (
+          <View style={[styles.root, padding, contentStyle]}>{children}</View>
+        )}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

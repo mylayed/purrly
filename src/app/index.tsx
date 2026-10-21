@@ -2,8 +2,10 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { Button, Card, Screen, SegmentedControl, Text } from '@/components/ui';
+import { signOut } from '@/features/auth';
 import { languageNames, supportedLanguages } from '@/i18n';
 import { useLanguageStore, type LanguagePreference } from '@/stores/language-store';
+import { useSessionStore } from '@/stores/session-store';
 import type { ThemePreference } from '@/stores/theme-store';
 import { useTheme } from '@/theme';
 
@@ -15,6 +17,7 @@ export default function Index() {
   const { colors, radii, spacing, preference, setPreference } = useTheme();
   const language = useLanguageStore((s) => s.preference);
   const setLanguage = useLanguageStore((s) => s.setPreference);
+  const email = useSessionStore((s) => s.session?.user.email);
 
   const themeOptions = themePreferences.map((value) => ({
     value,
@@ -35,6 +38,12 @@ export default function Index() {
     <Screen scroll>
       <Text variant="display">{t('app.name')}</Text>
       <Text tone="muted">{t('app.tagline')}</Text>
+
+      <Card style={{ gap: spacing.md }}>
+        <Text variant="heading">{t('account.title')}</Text>
+        {email && <Text tone="muted">{t('account.signedInAs', { email })}</Text>}
+        <Button title={t('account.signOut')} variant="secondary" onPress={signOut} />
+      </Card>
 
       <Card style={{ gap: spacing.md }}>
         <Text variant="heading">{t('settings.theme.title')}</Text>

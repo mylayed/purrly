@@ -23,7 +23,9 @@ export const supabase = createClient<Database>(supabaseUrl, supabasePublishableK
     storage: isWeb ? persistStorage : new SecureSessionStorage(),
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: false,
+    // У web після OAuth-редіректу сесія приходить в URL; на телефоні вхід нативний.
+    detectSessionInUrl: isWeb,
+    flowType: 'pkce',
     lock: processLock,
   },
 });

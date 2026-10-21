@@ -3,6 +3,48 @@
     "name": "Purrly",
     "tagline": "Котячий щоденник"
   },
+  "auth": {
+    "welcome": "Щоденник здоров'я, харчування й настрою твого кота",
+    "continueWithGoogle": "Продовжити з Google",
+    "signIn": "Увійти",
+    "signUp": "Зареєструватись",
+    "or": "або",
+    "email": "Електронна пошта",
+    "emailPlaceholder": "you@example.com",
+    "password": "Пароль",
+    "passwordHint_one": "Щонайменше {{count}} символ",
+    "passwordHint_few": "Щонайменше {{count}} символи",
+    "passwordHint_many": "Щонайменше {{count}} символів",
+    "passwordHint_other": "Щонайменше {{count}} символу",
+    "checkEmail": {
+      "title": "Перевір пошту",
+      "body": "Ми надіслали лист на {{email}}. Перейди за посиланням у ньому, щоб підтвердити адресу. Якщо відкриєш лист на іншому пристрої — після підтвердження повернись сюди й увійди.",
+      "back": "Повернутися до входу"
+    },
+    "validation": {
+      "emailInvalid": "Схоже, адреса введена з помилкою.",
+      "passwordTooShort_one": "Пароль має містити щонайменше {{count}} символ.",
+      "passwordTooShort_few": "Пароль має містити щонайменше {{count}} символи.",
+      "passwordTooShort_many": "Пароль має містити щонайменше {{count}} символів.",
+      "passwordTooShort_other": "Пароль має містити щонайменше {{count}} символу."
+    },
+    "errors": {
+      "expoGo": "Вхід через Google не працює в Expo Go — потрібен development build.",
+      "notConfigured": "Вхід через Google ще не налаштовано.",
+      "playServices": "Онови Google Play Services і спробуй ще раз.",
+      "invalidCredentials": "Неправильна пошта або пароль.",
+      "emailNotConfirmed": "Спершу підтверди пошту — перейди за посиланням у листі.",
+      "weakPassword": "Пароль надто простий. Додай літери, цифри чи символи.",
+      "invalidEmail": "Схоже, адреса введена з помилкою.",
+      "rateLimit": "Забагато спроб. Зачекай хвилину й спробуй ще раз.",
+      "generic": "Не вдалося увійти. Спробуй ще раз."
+    }
+  },
+  "account": {
+    "title": "Акаунт",
+    "signedInAs": "Вхід виконано як {{email}}",
+    "signOut": "Вийти"
+  },
   "settings": {
     "theme": {
       "title": "Тема",
