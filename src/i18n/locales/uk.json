@@ -1,0 +1,31 @@
+{
+  "app": {
+    "name": "Purrly",
+    "tagline": "Котячий щоденник"
+  },
+  "settings": {
+    "theme": {
+      "title": "Тема",
+      "system": "Системна",
+      "light": "Світла",
+      "dark": "Темна"
+    },
+    "language": {
+      "title": "Мова",
+      "system": "Системна"
+    }
+  },
+  "showcase": {
+    "buttons": "Кнопки",
+    "addCat": "Додати кота",
+    "logWeight": "Записати вагу",
+    "later": "Пізніше",
+    "statuses": "Статуси",
+    "vaccinated": "Щеплення зроблено",
+    "dewormingSoon_one": "Обробка від паразитів за {{count}} день",
+    "dewormingSoon_few": "Обробка від паразитів за {{count}} дні",
+    "dewormingSoon_many": "Обробка від паразитів за {{count}} днів",
+    "dewormingSoon_other": "Обробка від паразитів за {{count}} дня",
+    "weightDropped": "Вага впала на {{percent}}%"
+  }
+}

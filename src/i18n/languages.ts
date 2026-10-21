@@ -1,0 +1,23 @@
+import { getLocales } from 'expo-localization';
+
+// Російської немає і не буде. pl, de, es додаються на етапі 5.
+export const supportedLanguages = ['uk', 'en'] as const;
+export type Language = (typeof supportedLanguages)[number];
+
+export const fallbackLanguage: Language = 'en';
+
+// Назви мов пишемо їхньою ж мовою, щоб їх упізнавали з будь-якого інтерфейсу.
+export const languageNames: Record<Language, string> = {
+  uk: 'Українська',
+  en: 'English',
+};
+
+export function isSupportedLanguage(code: string | null | undefined): code is Language {
+  return supportedLanguages.includes(code as Language);
+}
+
+// Перша мова зі списку пристрою, яку ми підтримуємо; інакше англійська.
+export function getDeviceLanguage(): Language {
+  const match = getLocales().find((locale) => isSupportedLanguage(locale.languageCode));
+  return (match?.languageCode as Language | undefined) ?? fallbackLanguage;
+}

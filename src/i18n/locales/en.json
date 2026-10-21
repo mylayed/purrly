@@ -1,0 +1,31 @@
+{
+  "app": {
+    "name": "Purrly",
+    "tagline": "Cat diary"
+  },
+  "settings": {
+    "theme": {
+      "title": "Theme",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": {
+      "title": "Language",
+      "system": "System"
+    }
+  },
+  "showcase": {
+    "buttons": "Buttons",
+    "addCat": "Add a cat",
+    "logWeight": "Log weight",
+    "later": "Later",
+    "statuses": "Statuses",
+    "vaccinated": "Vaccination done",
+    "dewormingSoon_one": "Deworming in {{count}} day",
+    "dewormingSoon_few": "Deworming in {{count}} days",
+    "dewormingSoon_many": "Deworming in {{count}} days",
+    "dewormingSoon_other": "Deworming in {{count}} days",
+    "weightDropped": "Weight dropped by {{percent}}%"
+  }
+}
