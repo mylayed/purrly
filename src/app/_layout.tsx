@@ -61,6 +61,7 @@ function RootStack() {
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
         <Stack.Protected guard={signedIn && !recovering} redirectTo={signedIn ? home : '/sign-in'}>
           <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="delete-account" />
         </Stack.Protected>
         <Stack.Protected guard={recovering} redirectTo={signedIn ? '/' : '/sign-in'}>
           <Stack.Screen name="reset-password" />

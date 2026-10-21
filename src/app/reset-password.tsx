@@ -74,7 +74,7 @@ export default function ResetPassword() {
 
       <View style={{ gap: spacing.sm }}>
         <Button title={t('auth.reset.submit')} disabled={pending} onPress={submit} />
-        <Button title={t('auth.reset.cancel')} variant="ghost" onPress={signOut} />
+        <Button title={t('auth.reset.cancel')} variant="ghost" onPress={() => signOut()} />
       </View>
     </Screen>
   );

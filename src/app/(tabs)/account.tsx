@@ -1,4 +1,5 @@
 import * as ImagePicker from 'expo-image-picker';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, View } from 'react-native';
@@ -13,6 +14,7 @@ import {
   Text,
   TextField,
 } from '@/components/ui';
+import { exportMyData } from '@/features/account/export-data';
 import { signOut } from '@/features/auth';
 import {
   MAX_DISPLAY_NAME_LENGTH,
@@ -51,10 +53,11 @@ export default function Account() {
         <>
           <ProfileCard profile={profile} />
           <PreferencesCard profile={profile} />
+          <PrivacyCard />
         </>
       )}
 
-      <Button title={t('account.signOut')} variant="ghost" onPress={signOut} />
+      <Button title={t('account.signOut')} variant="ghost" onPress={() => signOut()} />
     </Screen>
   );
 }
@@ -209,6 +212,45 @@ function PreferencesCard({ profile }: { profile: Profile }) {
           onChange={(weight_unit) => updateProfile.mutate({ weight_unit })}
         />
       </View>
+    </Card>
+  );
+}
+
+function PrivacyCard() {
+  const { t } = useTranslation();
+  const { spacing } = useTheme();
+  const [exporting, setExporting] = useState(false);
+  const [exportFailed, setExportFailed] = useState(false);
+
+  async function exportData() {
+    setExporting(true);
+    setExportFailed(false);
+    try {
+      await exportMyData();
+    } catch (error) {
+      console.warn('Export failed', error);
+      setExportFailed(true);
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  return (
+    <Card style={{ gap: spacing.md }}>
+      <Text variant="heading">{t('account.privacy')}</Text>
+      <Text tone="muted">{t('account.privacyBody')}</Text>
+      <Button
+        title={exporting ? t('account.exporting') : t('account.exportData')}
+        variant="secondary"
+        disabled={exporting}
+        onPress={exportData}
+      />
+      {exportFailed && <ErrorBanner message={t('account.exportError')} />}
+      <Button
+        title={t('account.deleteAccount')}
+        variant="danger"
+        onPress={() => router.push('/delete-account')}
+      />
     </Card>
   );
 }

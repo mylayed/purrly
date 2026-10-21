@@ -4,7 +4,7 @@ import { useTheme, type ThemeColors } from '@/theme';
 
 import { Text, type TextProps } from './text';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
 const variantColors: Record<
   ButtonVariant,
@@ -13,6 +13,8 @@ const variantColors: Record<
   primary: { bg: 'accent', pressed: 'accentPressed', tone: 'onAccent' },
   secondary: { bg: 'secondaryBg', pressed: 'border', tone: 'secondary' },
   ghost: { bg: null, pressed: 'accentSoft', tone: 'accent' },
+  // Незворотні дії: приглушений червоний, без крику.
+  danger: { bg: 'dangerBg', pressed: 'border', tone: 'danger' },
 };
 
 export type ButtonProps = Omit<PressableProps, 'children' | 'style'> & {

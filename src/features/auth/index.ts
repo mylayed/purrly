@@ -17,8 +17,9 @@ export { AuthCancelledError, AuthError, type AuthErrorReason } from './errors';
 export { signInWithGoogle } from './google-sign-in';
 export { useAuthDeepLink } from './use-auth-deep-link';
 
-export async function signOut() {
-  await supabase.auth.signOut();
+// scope 'local' — коли сесію на сервері вже знищено (наприклад, після видалення акаунта).
+export async function signOut(options?: { scope: 'local' | 'global' }) {
+  await supabase.auth.signOut(options);
   // Вихід із Google — не критичний: сесію Supabase вже завершено.
   await signOutFromGoogle().catch(() => {});
   // Щоб наступний користувач на цьому пристрої не побачив чужих даних.

@@ -76,7 +76,13 @@
     "preferences": "Preferences",
     "units": "Weight units",
     "kg": "kg",
-    "lb": "lb"
+    "lb": "lb",
+    "privacy": "Privacy",
+    "privacyBody": "Your data belongs to you: download it or delete it along with your account.",
+    "exportData": "Download my data",
+    "exporting": "Preparing the file…",
+    "exportError": "Couldn't prepare the file. Please try again.",
+    "deleteAccount": "Delete account"
   },
   "settings": {
     "theme": {
@@ -111,5 +117,20 @@
   "reminders": {
     "emptyTitle": "No reminders yet",
     "emptyBody": "Food, meds, vaccinations, vet visits — we'll remind you on time, without spam."
+  },
+  "deleteAccount": {
+    "title": "Delete account",
+    "intro": "This will permanently delete:",
+    "itemProfile": "your profile, name and photo",
+    "itemCats": "the cats you added, with all their records and photos",
+    "itemAccess": "your access to other people's cats",
+    "othersKeep": "Records you made for other people's cats stay with them, without your name.",
+    "noUndo": "This can't be undone. If you want to keep your data, download it first.",
+    "confirmLabel": "To confirm, type {{word}}",
+    "confirmWord": "DELETE",
+    "submit": "Delete forever",
+    "deleting": "Deleting…",
+    "cancel": "Cancel",
+    "error": "Couldn't delete your account. Check your connection and try again."
   }
 }
