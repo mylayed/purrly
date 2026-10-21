@@ -14,6 +14,7 @@ import {
   type Cat,
 } from '@/features/cats/api';
 import { useFormatCatAge } from '@/features/cats/use-cat-age';
+import { WeightTile } from '@/features/weight/components/weight-tile';
 import { formatBirthDate } from '@/lib/cat-age';
 import { useTheme } from '@/theme';
 
@@ -108,6 +109,8 @@ function CatProfileContent({ cat }: { cat: Cat }) {
           <Text tone="secondary">{t(`cats.stage.${age.stage}Tip`)}</Text>
         </Card>
       )}
+
+      <WeightTile catId={cat.id} />
 
       <Card style={{ gap: spacing.md }}>
         <Text variant="heading">{t('cats.details.title')}</Text>

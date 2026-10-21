@@ -322,3 +322,121 @@ function useSharedRunCounter(trigger: unknown, autoPlay: boolean) {
   useIconAnimation(trigger, autoPlay, bump);
   return run;
 }
+
+// ── chart-line: лінія графіка «малюється» (0.3 s із затримкою 0.15 s) ────────────
+const CHART_LINE_LENGTH = 17.2;
+
+export function ChartLineIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+  trigger,
+  autoPlay = false,
+}: IconProps) {
+  const progress = useSharedValue(1);
+
+  useIconAnimation(trigger, autoPlay, () => {
+    progress.value = 0;
+    progress.value = withDelay(150, withTiming(1, { duration: 300 }));
+  });
+
+  const lineProps = useAnimatedProps(() => ({
+    strokeDashoffset: CHART_LINE_LENGTH * (1 - progress.value),
+    opacity: Math.min(1, progress.value * 3),
+  }));
+
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <Path d="M3 3v16a2 2 0 0 0 2 2h16" />
+      <AnimatedPath
+        d="m7 13 3-3 4 4 5-5"
+        strokeDasharray={CHART_LINE_LENGTH}
+        animatedProps={lineProps}
+      />
+    </IconSvg>
+  );
+}
+
+// ── delete: кришка підскакує, кошик трохи осідає (пружина) ───────────────────────
+export function DeleteIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+  trigger,
+  autoPlay = false,
+}: IconProps) {
+  const lid = useSharedValue(0);
+  const body = useSharedValue(0);
+  const unit = size / 24;
+  const spring = { stiffness: 500, damping: 30 };
+
+  // В оригіналі стан тримається, поки курсор над іконкою; на дотик — коротке «туди й назад».
+  useIconAnimation(trigger, autoPlay, () => {
+    lid.value = withSequence(withSpring(-1.1 * unit, spring), withSpring(0, spring));
+    body.value = withSequence(withSpring(0.5 * unit, spring), withSpring(0, spring));
+  });
+
+  const lidStyle = useAnimatedStyle(() => ({ transform: [{ translateY: lid.value }] }));
+  const bodyStyle = useAnimatedStyle(() => ({ transform: [{ translateY: body.value }] }));
+  const layer = { position: 'absolute' as const, top: 0, left: 0 };
+
+  return (
+    <View style={{ width: size, height: size }}>
+      <Animated.View style={[layer, bodyStyle]}>
+        <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+          <Path d="M19 8v12c0 1-1 2-2 2H7c-1 0-2-1-2-2V8" />
+          <Path d="M10 11v6" />
+          <Path d="M14 11v6" />
+        </IconSvg>
+      </Animated.View>
+      <Animated.View style={[layer, lidStyle]}>
+        <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+          <Path d="M3 6h18" />
+          <Path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+        </IconSvg>
+      </Animated.View>
+    </View>
+  );
+}
+
+// ── badge-alert: значок підстрибує й хитається (0.5 s) ────────────────────────────
+export function BadgeAlertIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+  trigger,
+  autoPlay = false,
+}: IconProps) {
+  const scale = useSharedValue(1);
+  const rotate = useSharedValue(0);
+
+  useIconAnimation(trigger, autoPlay, () => {
+    // Оригінал: scale [1, 1.1, 1.1, 1.1, 1], rotate [0, -3, 3, -2, 2, 0] за 0.5 s.
+    scale.value = withSequence(
+      withTiming(1.1, { duration: 100 }),
+      withDelay(200, withTiming(1, { duration: 200 })),
+    );
+    const step = { duration: 100, easing: easeInOut };
+    rotate.value = withSequence(
+      withTiming(-3, step),
+      withTiming(3, step),
+      withTiming(-2, step),
+      withTiming(2, step),
+      withTiming(0, step),
+    );
+  });
+
+  const style = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }, { rotate: `${rotate.value}deg` }],
+  }));
+
+  return (
+    <Animated.View style={style}>
+      <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+        <Path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+        <Path d="M12 8v4" />
+        <Path d="M12 16h.01" />
+      </IconSvg>
+    </Animated.View>
+  );
+}

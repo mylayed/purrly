@@ -212,5 +212,52 @@
     "deleteConfirm": "Tap again to permanently delete {{name}} with all records and photos.",
     "deleteConfirmButton": "Yes, delete forever",
     "actionError": "That didn't work. Check your connection and try again."
+  },
+  "weight": {
+    "title": "Weight",
+    "latest": "Latest weight",
+    "units": {
+      "kg": "kg",
+      "lb": "lb"
+    },
+    "emptyTitle": "No weigh-ins yet",
+    "emptyBody": "Weigh your cat every week or two — it makes changes easier to spot early.",
+    "add": "Log weight",
+    "addTitle": "New entry",
+    "weightLabel": "Weight, {{unit}}",
+    "weightPlaceholder": {
+      "kg": "4.2",
+      "lb": "9.3"
+    },
+    "weightInvalid": "Enter a weight from {{min}} to {{max}} {{unit}}.",
+    "date": "Date",
+    "dateInvalid": "Check the date: DD.MM.YYYY and not in the future.",
+    "note": "Note",
+    "notePlaceholder": "After a meal, on the vet clinic scale…",
+    "save": "Save",
+    "saving": "Saving…",
+    "saveError": "Couldn't save. Check your connection and try again.",
+    "loadError": "Couldn't load weight.",
+    "change": "{{value}} {{unit}} in {{period}}",
+    "days_one": "{{count}} day",
+    "days_few": "{{count}} days",
+    "days_many": "{{count}} days",
+    "days_other": "{{count}} days",
+    "alertWatch": "Weight dropped by {{percent}}% — keep an eye on it and weigh more often.",
+    "alertVet": "Weight dropped by {{percent}}% — consider showing your cat to a vet.",
+    "ranges": {
+      "m1": "1 mo",
+      "m3": "3 mo",
+      "m6": "6 mo",
+      "y1": "Year",
+      "all": "All"
+    },
+    "noDataInRange": "No weigh-ins in this period.",
+    "chartA11y": "Weight chart from {{from}} to {{to}}. Latest weight {{value}}.",
+    "history": "Weigh-in history",
+    "delete": "Delete entry",
+    "deleteConfirm": "Delete?",
+    "showAll": "Show all ({{count}})",
+    "open": "Details"
   }
 }

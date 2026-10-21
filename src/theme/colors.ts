@@ -21,6 +21,8 @@ export type ThemeColors = {
   danger: string;
   dangerBg: string;
   dangerText: string;
+  // Лінія графіка: перевірено валідатором dataviz (контраст ≥ 3:1 до картки, діапазон світлоти).
+  chartLine: string;
 };
 
 export const colors: Record<ColorScheme, ThemeColors> = {
@@ -46,6 +48,7 @@ export const colors: Record<ColorScheme, ThemeColors> = {
     danger: '#C9625B',
     dangerBg: '#F8E0DD',
     dangerText: '#8C2F28',
+    chartLine: '#B4532A',
   },
   dark: {
     bg: '#17151A',
@@ -67,5 +70,6 @@ export const colors: Record<ColorScheme, ThemeColors> = {
     danger: '#E27D74',
     dangerBg: '#3F2423',
     dangerText: '#F4B2AB',
+    chartLine: '#D27245',
   },
 };
