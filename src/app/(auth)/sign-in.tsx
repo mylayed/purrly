@@ -1,13 +1,24 @@
 import * as AppleAuthentication from 'expo-apple-authentication';
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, View } from 'react-native';
 
-import { Button, Card, Screen, SegmentedControl, Text, TextField } from '@/components/ui';
+import {
+  Button,
+  Card,
+  ErrorBanner,
+  Screen,
+  SegmentedControl,
+  Text,
+  TextField,
+} from '@/components/ui';
 import {
   AuthCancelledError,
   AuthError,
   isAppleSignInAvailable,
+  isValidEmail,
+  setEmailDraft,
   MIN_PASSWORD_LENGTH,
   signInWithApple,
   signInWithEmail,
@@ -20,9 +31,6 @@ import { useTheme } from '@/theme';
 
 type Mode = 'signIn' | 'signUp';
 type Pending = 'email' | 'google' | 'apple';
-
-// Свідомо проста перевірка: точну валідацію робить Supabase.
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -41,7 +49,7 @@ export default function SignIn() {
     isAppleSignInAvailable().then(setAppleAvailable);
   }, []);
 
-  const emailError = EMAIL_PATTERN.test(email.trim()) ? null : t('auth.validation.emailInvalid');
+  const emailError = isValidEmail(email) ? null : t('auth.validation.emailInvalid');
   // Довжину пароля перевіряємо лише під час реєстрації: при вході вистачить відповіді сервера.
   const passwordError =
     mode === 'signUp' && password.length < MIN_PASSWORD_LENGTH
@@ -161,18 +169,22 @@ export default function SignIn() {
           disabled={busy}
           onPress={submitEmail}
         />
+        {mode === 'signIn' && (
+          <Button
+            title={t('auth.forgotPassword')}
+            variant="ghost"
+            disabled={busy}
+            onPress={() => {
+              setEmailDraft(email);
+              router.push('/forgot-password');
+            }}
+          />
+        )}
       </View>
 
       {pending && <ActivityIndicator color={colors.accent} />}
 
-      {error && (
-        <View
-          accessibilityRole="alert"
-          style={{ backgroundColor: colors.dangerBg, borderRadius: radii.md, padding: spacing.md }}
-        >
-          <Text tone="danger">{t(`auth.errors.${error}`)}</Text>
-        </View>
-      )}
+      {error && <ErrorBanner message={t(`auth.errors.${error}`)} />}
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
         <View style={{ flex: 1, height: 1, backgroundColor: colors.border }} />

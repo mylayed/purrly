@@ -12,6 +12,7 @@
     "email": "Email",
     "emailPlaceholder": "you@example.com",
     "password": "Password",
+    "forgotPassword": "Forgot password?",
     "passwordHint_one": "At least {{count}} character",
     "passwordHint_few": "At least {{count}} characters",
     "passwordHint_many": "At least {{count}} characters",
@@ -28,6 +29,21 @@
       "passwordTooShort_many": "Password must be at least {{count}} characters.",
       "passwordTooShort_other": "Password must be at least {{count}} characters."
     },
+    "forgot": {
+      "title": "Reset password",
+      "body": "Enter the email you signed up with. We will send you a link to set a new password.",
+      "submit": "Send link",
+      "sentTitle": "Check your email",
+      "sentBody": "If an account with {{email}} exists, we sent it a message. Open the link in it on this device.",
+      "back": "Back to sign in"
+    },
+    "reset": {
+      "title": "New password",
+      "body": "Choose a new password for your account.",
+      "newPassword": "New password",
+      "submit": "Save password",
+      "cancel": "Cancel"
+    },
     "errors": {
       "expoGo": "Google sign-in doesn't work in Expo Go — a development build is required.",
       "notConfigured": "Google sign-in isn't configured yet.",
@@ -37,6 +53,7 @@
       "weakPassword": "That password is too weak. Add letters, numbers or symbols.",
       "invalidEmail": "That email address doesn't look right.",
       "rateLimit": "Too many attempts. Wait a minute and try again.",
+      "samePassword": "The new password must be different from the old one.",
       "generic": "Couldn't sign in. Please try again."
     }
   },

@@ -1,4 +1,4 @@
-import { createClient, processLock } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import { AppState, Platform } from 'react-native';
 
 import { persistStorage } from '@/stores/persist-storage';
@@ -26,7 +26,6 @@ export const supabase = createClient<Database>(supabaseUrl, supabasePublishableK
     // У web після OAuth-редіректу сесія приходить в URL; на телефоні вхід нативний.
     detectSessionInUrl: isWeb,
     flowType: 'pkce',
-    lock: processLock,
   },
 });
 

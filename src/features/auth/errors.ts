@@ -8,6 +8,7 @@ export type AuthErrorReason =
   | 'weakPassword'
   | 'invalidEmail'
   | 'rateLimit'
+  | 'samePassword'
   | 'generic';
 
 export class AuthError extends Error {

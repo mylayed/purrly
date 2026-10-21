@@ -47,15 +47,21 @@ export default function RootLayout() {
 function RootStack() {
   const { scheme, colors } = useTheme();
   const signedIn = useSessionStore((s) => s.session !== null);
+  // Увійшов за посиланням «відновити пароль» — спершу новий пароль, потім застосунок.
+  const recovering = useSessionStore((s) => s.session !== null && s.passwordRecovery);
+  const home = recovering ? '/reset-password' : '/';
 
   return (
     <>
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
-        <Stack.Protected guard={signedIn} redirectTo="/sign-in">
+        <Stack.Protected guard={signedIn && !recovering} redirectTo={signedIn ? home : '/sign-in'}>
           <Stack.Screen name="index" />
         </Stack.Protected>
-        <Stack.Protected guard={!signedIn} redirectTo="/">
+        <Stack.Protected guard={recovering} redirectTo={signedIn ? '/' : '/sign-in'}>
+          <Stack.Screen name="reset-password" />
+        </Stack.Protected>
+        <Stack.Protected guard={!signedIn} redirectTo={home}>
           <Stack.Screen name="(auth)" />
         </Stack.Protected>
       </Stack>
