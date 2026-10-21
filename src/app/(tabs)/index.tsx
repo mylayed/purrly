@@ -1,9 +1,9 @@
 import { router } from 'expo-router';
-import { Cat as CatIcon, Plus } from 'phosphor-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
+import { CatIcon, PlusIcon } from '@/components/icons';
 import { Button, EmptyState, ErrorBanner, Screen, Text } from '@/components/ui';
 import { useCats } from '@/features/cats/api';
 import { CatCard } from '@/features/cats/components/cat-card';
@@ -16,6 +16,7 @@ export default function Home() {
   const { data: profile } = useProfile();
   const { data: cats, isPending, isError, refetch } = useCats();
   const [showArchived, setShowArchived] = useState(false);
+  const [addPresses, setAddPresses] = useState(0);
   const firstName = profile?.display_name?.trim().split(/\s+/)[0];
 
   const active = cats?.filter((cat) => !cat.archived_at) ?? [];
@@ -41,7 +42,7 @@ export default function Home() {
           </View>
         ) : (
           <EmptyState
-            icon={<CatIcon size={44} color={colors.accent} weight="duotone" />}
+            icon={<CatIcon size={40} color={colors.accent} strokeWidth={1.75} />}
             title={t('home.emptyTitle')}
             body={t('home.emptyBody')}
             action={<Button title={t('cats.add')} onPress={addCat} />}
@@ -62,6 +63,7 @@ export default function Home() {
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t('cats.add')}
+          onPressIn={() => setAddPresses((n) => n + 1)}
           onPress={addCat}
           hitSlop={8}
           style={({ pressed }) => ({
@@ -74,7 +76,7 @@ export default function Home() {
             backgroundColor: pressed ? colors.accentPressed : colors.accent,
           })}
         >
-          <Plus size={16} color={colors.onAccent} weight="bold" />
+          <PlusIcon size={16} color={colors.onAccent} strokeWidth={2.5} trigger={addPresses} />
           <Text variant="label" tone="onAccent">
             {t('cats.add')}
           </Text>

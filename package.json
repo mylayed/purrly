@@ -37,7 +37,6 @@
     "expo-system-ui": "~58.0.6",
     "expo-web-browser": "~58.0.6",
     "i18next": "^26.5.3",
-    "phosphor-react-native": "^3.0.6",
     "prettier": "^3.9.10",
     "react": "19.3.0",
     "react-dom": "19.3.0",
@@ -68,7 +67,7 @@
     "lint:fix": "expo lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node scripts/generate-route-types.js && tsc --noEmit",
     "db:link": "supabase link",
     "db:push": "supabase db push",
     "db:types": "supabase gen types typescript --linked --schema public > src/api/database.types.ts && prettier --write src/api/database.types.ts"

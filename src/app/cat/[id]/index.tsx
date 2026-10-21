@@ -1,9 +1,9 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { PencilSimple } from 'phosphor-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
+import { SquarePenIcon } from '@/components/icons';
 import { Avatar, Button, Card, ErrorBanner, Screen, ScreenHeader, Text } from '@/components/ui';
 import {
   useCat,
@@ -46,6 +46,7 @@ function CatProfileContent({ cat }: { cat: Cat }) {
   const { data: photoUrl } = useCatPhotoUrl(cat.photo_path);
   const { data: role } = useCatRole(cat.id);
   const age = useFormatCatAge()(cat.birth_date);
+  const [editPresses, setEditPresses] = useState(0);
 
   const sexLabel = {
     male: t('cats.form.sexMale'),
@@ -73,6 +74,7 @@ function CatProfileContent({ cat }: { cat: Cat }) {
             accessibilityRole="button"
             accessibilityLabel={t('cats.editTitle')}
             hitSlop={8}
+            onPressIn={() => setEditPresses((n) => n + 1)}
             onPress={() => router.push({ pathname: '/cat/[id]/edit', params: { id: cat.id } })}
             style={({ pressed }) => ({
               width: 40,
@@ -83,7 +85,7 @@ function CatProfileContent({ cat }: { cat: Cat }) {
               backgroundColor: pressed ? colors.accentSoft : colors.card,
             })}
           >
-            <PencilSimple size={20} color={colors.text} weight="bold" />
+            <SquarePenIcon size={20} color={colors.text} strokeWidth={2.25} trigger={editPresses} />
           </Pressable>
         }
       />

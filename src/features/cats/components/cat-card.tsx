@@ -1,7 +1,8 @@
 import { router } from 'expo-router';
-import { CaretRight } from 'phosphor-react-native';
+import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
+import { ChevronRightIcon } from '@/components/icons';
 import { Avatar, Text } from '@/components/ui';
 import { useTheme } from '@/theme';
 
@@ -12,12 +13,14 @@ export function CatCard({ cat }: { cat: Cat }) {
   const { colors, radii, spacing } = useTheme();
   const { data: photoUrl } = useCatPhotoUrl(cat.photo_path);
   const age = useFormatCatAge()(cat.birth_date);
+  const [presses, setPresses] = useState(0);
   const subtitle = [age?.text, cat.breed].filter(Boolean).join(' · ');
 
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={cat.name}
+      onPressIn={() => setPresses((n) => n + 1)}
       onPress={() => router.push({ pathname: '/cat/[id]', params: { id: cat.id } })}
       style={({ pressed }) => ({
         flexDirection: 'row',
@@ -40,7 +43,7 @@ export function CatCard({ cat }: { cat: Cat }) {
           </Text>
         ) : null}
       </View>
-      <CaretRight size={20} color={colors.textMuted} />
+      <ChevronRightIcon size={20} color={colors.textMuted} trigger={presses} />
     </Pressable>
   );
 }

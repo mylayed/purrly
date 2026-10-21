@@ -1,6 +1,6 @@
-import { Images } from 'phosphor-react-native';
 import { useTranslation } from 'react-i18next';
 
+import { GalleryThumbnailsIcon } from '@/components/icons';
 import { EmptyState, Screen, Text } from '@/components/ui';
 import { useTheme } from '@/theme';
 
@@ -12,7 +12,7 @@ export default function Feed() {
     <Screen>
       <Text variant="title">{t('tabs.feed')}</Text>
       <EmptyState
-        icon={<Images size={44} color={colors.accent} weight="duotone" />}
+        icon={<GalleryThumbnailsIcon size={40} color={colors.accent} strokeWidth={1.75} autoPlay />}
         title={t('feed.emptyTitle')}
         body={t('feed.emptyBody')}
       />

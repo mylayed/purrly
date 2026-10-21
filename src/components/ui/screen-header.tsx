@@ -1,8 +1,8 @@
 import { router } from 'expo-router';
-import { CaretLeft } from 'phosphor-react-native';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 
+import { ChevronLeftIcon } from '@/components/icons';
 import { useTheme } from '@/theme';
 
 import { Text } from './text';
@@ -17,6 +17,7 @@ type ScreenHeaderProps = {
 
 export function ScreenHeader({ title, backLabel, fallbackHref = '/', right }: ScreenHeaderProps) {
   const { colors, radii, spacing } = useTheme();
+  const [presses, setPresses] = useState(0);
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
@@ -24,6 +25,7 @@ export function ScreenHeader({ title, backLabel, fallbackHref = '/', right }: Sc
         accessibilityRole="button"
         accessibilityLabel={backLabel}
         hitSlop={8}
+        onPressIn={() => setPresses((n) => n + 1)}
         onPress={() => (router.canGoBack() ? router.back() : router.replace(fallbackHref))}
         style={({ pressed }) => ({
           width: 40,
@@ -34,7 +36,7 @@ export function ScreenHeader({ title, backLabel, fallbackHref = '/', right }: Sc
           backgroundColor: pressed ? colors.accentSoft : colors.card,
         })}
       >
-        <CaretLeft size={22} color={colors.text} weight="bold" />
+        <ChevronLeftIcon size={22} color={colors.text} strokeWidth={2.25} trigger={presses} />
       </Pressable>
       <Text variant="title" style={{ flex: 1 }} numberOfLines={1}>
         {title}
