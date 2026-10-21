@@ -82,7 +82,8 @@
     "exportData": "Download my data",
     "exporting": "Preparing the file…",
     "exportError": "Couldn't prepare the file. Please try again.",
-    "deleteAccount": "Delete account"
+    "deleteAccount": "Delete account",
+    "needsUpdate": "This feature needs a newer version of the app. Please update it and try again."
   },
   "settings": {
     "theme": {

@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 
 import type { Database } from '@/api/database.types';
 import { supabase } from '@/api/supabase';
@@ -100,6 +99,9 @@ export function useUploadAvatar() {
 
   return useMutation({
     mutationFn: async ({ uri, previousPath }: { uri: string; previousPath: string | null }) => {
+      // Нативний модуль вантажимо лише тут: якщо його немає в збірці,
+      // зламається ця дія, а не весь застосунок на старті.
+      const { ImageManipulator, SaveFormat } = await import('expo-image-manipulator');
       const rendered = await ImageManipulator.manipulate(uri)
         .resize({ width: AVATAR_SIZE })
         .renderAsync();

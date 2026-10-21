@@ -1,4 +1,3 @@
-import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +28,7 @@ import { languageNames, supportedLanguages } from '@/i18n';
 import { useLanguageStore, type LanguagePreference } from '@/stores/language-store';
 import { useSessionStore } from '@/stores/session-store';
 import type { ThemePreference } from '@/stores/theme-store';
+import { isMissingNativeModuleError } from '@/lib/native-module';
 import { useTheme } from '@/theme';
 
 const themePreferences: ThemePreference[] = ['system', 'light', 'dark'];
@@ -99,15 +99,26 @@ function ProfileCard({ profile }: { profile: Profile }) {
     );
   }
 
+  const [pickerFailed, setPickerFailed] = useState<unknown>(null);
+  const photoError = pickerFailed ?? uploadAvatar.error;
+
   async function changePhoto() {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-    if (result.canceled || !result.assets[0]) return;
-    uploadAvatar.mutate({ uri: result.assets[0].uri, previousPath: profile.avatar_path });
+    setPickerFailed(null);
+    try {
+      // Нативний модуль вантажимо лише під час дії — див. lib/native-module.
+      const ImagePicker = await import('expo-image-picker');
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (result.canceled || !result.assets[0]) return;
+      uploadAvatar.mutate({ uri: result.assets[0].uri, previousPath: profile.avatar_path });
+    } catch (error) {
+      console.warn('Image picker failed', error);
+      setPickerFailed(error);
+    }
   }
 
   return (
@@ -144,7 +155,13 @@ function ProfileCard({ profile }: { profile: Profile }) {
         </View>
       </View>
 
-      {uploadAvatar.isError && <ErrorBanner message={t('account.photoError')} />}
+      {photoError ? (
+        <ErrorBanner
+          message={t(
+            isMissingNativeModuleError(photoError) ? 'account.needsUpdate' : 'account.photoError',
+          )}
+        />
+      ) : null}
 
       <TextField
         label={t('account.name')}
@@ -220,16 +237,16 @@ function PrivacyCard() {
   const { t } = useTranslation();
   const { spacing } = useTheme();
   const [exporting, setExporting] = useState(false);
-  const [exportFailed, setExportFailed] = useState(false);
+  const [exportError, setExportError] = useState<unknown>(null);
 
   async function exportData() {
     setExporting(true);
-    setExportFailed(false);
+    setExportError(null);
     try {
       await exportMyData();
     } catch (error) {
       console.warn('Export failed', error);
-      setExportFailed(true);
+      setExportError(error);
     } finally {
       setExporting(false);
     }
@@ -245,7 +262,13 @@ function PrivacyCard() {
         disabled={exporting}
         onPress={exportData}
       />
-      {exportFailed && <ErrorBanner message={t('account.exportError')} />}
+      {exportError ? (
+        <ErrorBanner
+          message={t(
+            isMissingNativeModuleError(exportError) ? 'account.needsUpdate' : 'account.exportError',
+          )}
+        />
+      ) : null}
       <Button
         title={t('account.deleteAccount')}
         variant="danger"

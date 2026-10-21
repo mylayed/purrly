@@ -1,9 +1,10 @@
-import { File, Paths } from 'expo-file-system';
-import * as Sharing from 'expo-sharing';
-
 // Телефон: пишемо файл у кеш і відкриваємо системне «Поділитися» —
 // звідти його можна зберегти у Файли, на Диск чи надіслати собі.
 export async function saveJsonFile(fileName: string, json: string) {
+  // Нативні модулі вантажимо лише під час експорту — див. lib/native-module.
+  const { File, Paths } = await import('expo-file-system');
+  const Sharing = await import('expo-sharing');
+
   const file = new File(Paths.cache, fileName);
   file.create({ overwrite: true });
   await file.write(json);
