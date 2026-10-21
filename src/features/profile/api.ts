@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import type { Database } from '@/api/database.types';
+import { removeFiles, uploadImage, useSignedUrl } from '@/api/storage';
 import { supabase } from '@/api/supabase';
 import { useSessionStore } from '@/stores/session-store';
 
@@ -11,14 +12,11 @@ export type ProfileUpdate = Partial<
 >;
 
 export const MAX_DISPLAY_NAME_LENGTH = 50;
-const AVATAR_BUCKET = 'avatars';
+const AVATAR_BUCKET = 'avatars' as const;
 const AVATAR_SIZE = 512;
-// Підписане посилання на приватний аватар; кеш оновлюємо раніше, ніж воно спливе.
-const AVATAR_URL_TTL_SECONDS = 60 * 60;
 
 export const profileKeys = {
   profile: (userId: string) => ['profile', userId] as const,
-  avatarUrl: (path: string) => ['avatar-url', path] as const,
 };
 
 function useUserId() {
@@ -78,48 +76,20 @@ export function useUpdateProfile() {
 }
 
 export function useAvatarUrl(path: string | null | undefined) {
-  return useQuery({
-    queryKey: profileKeys.avatarUrl(path ?? ''),
-    enabled: !!path,
-    staleTime: (AVATAR_URL_TTL_SECONDS - 5 * 60) * 1000,
-    queryFn: async () => {
-      const { data, error } = await supabase.storage
-        .from(AVATAR_BUCKET)
-        .createSignedUrl(path!, AVATAR_URL_TTL_SECONDS);
-      if (error) throw error;
-      return data.signedUrl;
-    },
-  });
+  return useSignedUrl(AVATAR_BUCKET, path);
 }
 
-// Стискає фото до 512 px JPEG і кладе в avatars/{userId}/… — так вимагає політика бакета.
+// Кладемо в avatars/{userId}/… — так вимагає політика бакета.
 export function useUploadAvatar() {
   const userId = useUserId();
   const updateProfile = useUpdateProfile();
 
   return useMutation({
     mutationFn: async ({ uri, previousPath }: { uri: string; previousPath: string | null }) => {
-      // Нативний модуль вантажимо лише тут: якщо його немає в збірці,
-      // зламається ця дія, а не весь застосунок на старті.
-      const { ImageManipulator, SaveFormat } = await import('expo-image-manipulator');
-      const rendered = await ImageManipulator.manipulate(uri)
-        .resize({ width: AVATAR_SIZE })
-        .renderAsync();
-      const image = await rendered.saveAsync({ format: SaveFormat.JPEG, compress: 0.8 });
-      const body = await (await fetch(image.uri)).arrayBuffer();
-
       const path = `${userId}/${Date.now()}.jpg`;
-      const { error } = await supabase.storage
-        .from(AVATAR_BUCKET)
-        .upload(path, body, { contentType: 'image/jpeg' });
-      if (error) throw error;
-
+      await uploadImage(AVATAR_BUCKET, path, uri, AVATAR_SIZE);
       await updateProfile.mutateAsync({ avatar_path: path });
-
-      // Старий файл більше не потрібен; якщо не видалився — не страшно.
-      if (previousPath) {
-        await supabase.storage.from(AVATAR_BUCKET).remove([previousPath]);
-      }
+      if (previousPath) await removeFiles(AVATAR_BUCKET, [previousPath]);
       return path;
     },
   });

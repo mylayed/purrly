@@ -62,6 +62,7 @@ function RootStack() {
         <Stack.Protected guard={signedIn && !recovering} redirectTo={signedIn ? home : '/sign-in'}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="delete-account" />
+          <Stack.Screen name="cat" />
         </Stack.Protected>
         <Stack.Protected guard={recovering} redirectTo={signedIn ? '/' : '/sign-in'}>
           <Stack.Screen name="reset-password" />

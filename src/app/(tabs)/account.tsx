@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
+import { pickSquareImage } from '@/api/storage';
 import {
   Avatar,
   Button,
@@ -105,16 +106,8 @@ function ProfileCard({ profile }: { profile: Profile }) {
   async function changePhoto() {
     setPickerFailed(null);
     try {
-      // Нативний модуль вантажимо лише під час дії — див. lib/native-module.
-      const ImagePicker = await import('expo-image-picker');
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'],
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 1,
-      });
-      if (result.canceled || !result.assets[0]) return;
-      uploadAvatar.mutate({ uri: result.assets[0].uri, previousPath: profile.avatar_path });
+      const uri = await pickSquareImage();
+      if (uri) uploadAvatar.mutate({ uri, previousPath: profile.avatar_path });
     } catch (error) {
       console.warn('Image picker failed', error);
       setPickerFailed(error);
