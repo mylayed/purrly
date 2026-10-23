@@ -4,6 +4,7 @@ import { ActivityIndicator, View } from 'react-native';
 
 import { Button, ErrorBanner, Text } from '@/components/ui';
 import type { FeedItem } from '@/features/feed/api';
+import { openPaywall } from '@/features/subscription/api';
 import { useTheme } from '@/theme';
 
 import { isMood, MoodError, useMoodOfPhoto } from '../api';
@@ -88,6 +89,9 @@ export function MoodPanel({ item, autoStart = false }: { item: PhotoItem; autoSt
         <Button title={t('mood.find')} variant="secondary" onPress={start} />
       )}
       {errorMessage && <ErrorBanner message={errorMessage} />}
+      {error instanceof MoodError && error.code === 'limit' && (
+        <Button title={t('paywall.cta')} variant="ghost" onPress={() => openPaywall('ai')} />
+      )}
     </View>
   );
 }

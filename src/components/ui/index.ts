@@ -1,5 +1,6 @@
 export { AddButton } from './add-button';
 export { Avatar } from './avatar';
+export { BlinkingCat } from './blinking-cat';
 export { Button, type ButtonProps } from './button';
 export { Card } from './card';
 export { Chip } from './chip';

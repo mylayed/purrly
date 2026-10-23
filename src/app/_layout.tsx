@@ -63,6 +63,7 @@ function RootStack() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="delete-account" />
           <Stack.Screen name="cat" />
+          <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
         </Stack.Protected>
         <Stack.Protected guard={recovering} redirectTo={signedIn ? '/' : '/sign-in'}>
           <Stack.Screen name="reset-password" />

@@ -4,13 +4,19 @@ import { initReactI18next } from 'react-i18next';
 // До першого перекладу: без Intl.PluralRules (Hermes) множина в українській ламається.
 import './plural-rules';
 import { fallbackLanguage, getDeviceLanguage, supportedLanguages } from './languages';
+import de from './locales/de.json';
 import en from './locales/en.json';
+import es from './locales/es.json';
+import pl from './locales/pl.json';
 import uk from './locales/uk.json';
 
-// uk — основна мова, тож її ключі є еталоном; en мусить мати ті самі.
+// uk — основна мова, тож її ключі є еталоном; решта мусить мати ті самі.
 export const resources = {
   uk: { translation: uk },
   en: { translation: en satisfies typeof uk },
+  pl: { translation: pl satisfies typeof uk },
+  de: { translation: de satisfies typeof uk },
+  es: { translation: es satisfies typeof uk },
 } as const;
 
 const i18n = createInstance();

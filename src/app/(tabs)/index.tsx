@@ -8,6 +8,7 @@ import { Button, Card, EmptyState, ErrorBanner, Screen, Text } from '@/component
 import { useCats } from '@/features/cats/api';
 import { CatCard } from '@/features/cats/components/cat-card';
 import { useProfile } from '@/features/profile/api';
+import { useAddCat } from '@/features/subscription/api';
 import { useTheme } from '@/theme';
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
 
   const active = cats?.filter((cat) => !cat.archived_at) ?? [];
   const archived = cats?.filter((cat) => cat.archived_at) ?? [];
-  const addCat = () => router.push('/cat/new');
+  const addCat = useAddCat();
 
   const greeting = (
     <Text variant="title">

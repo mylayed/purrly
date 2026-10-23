@@ -1,7 +1,7 @@
 import { getLocales } from 'expo-localization';
 
-// Російської немає і не буде. pl, de, es додаються на етапі 5.
-export const supportedLanguages = ['uk', 'en'] as const;
+// Російської немає і не буде. pl, de, es — чернетки перекладу, до релізу їх перевіряють носії мови.
+export const supportedLanguages = ['uk', 'en', 'pl', 'de', 'es'] as const;
 export type Language = (typeof supportedLanguages)[number];
 
 export const fallbackLanguage: Language = 'en';
@@ -10,6 +10,9 @@ export const fallbackLanguage: Language = 'en';
 export const languageNames: Record<Language, string> = {
   uk: 'Українська',
   en: 'English',
+  pl: 'Polski',
+  de: 'Deutsch',
+  es: 'Español',
 };
 
 export function isSupportedLanguage(code: string | null | undefined): code is Language {

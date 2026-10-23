@@ -671,5 +671,43 @@
         "description": "Midnight zoomies, things knocked off tables and zero regrets."
       }
     }
+  },
+  "paywall": {
+    "title": "Purrly Plus",
+    "subtitle": "For those with more than one cat and more than three photos a week.",
+    "close": "Close",
+    "cta": "Get more with Plus",
+    "accountPitch": "Unlimited cats and AI moods. Everything about your cat’s health stays free forever.",
+    "alreadyPlus": "You have Purrly Plus. Thank you for supporting the app!",
+    "reasons": {
+      "cats": "Another cat comes with Plus",
+      "ai": "More AI moods come with Plus"
+    },
+    "benefits": {
+      "unlimitedCats": "Unlimited cats in one account",
+      "unlimitedAi": "AI mood and story captions with no weekly limit",
+      "support": "Support the app and get new Plus features first"
+    },
+    "freeForever": "Health records, vet care, feeding and reminders stay free — your cat’s safety is never behind a paywall.",
+    "plans": {
+      "yearly": "Yearly",
+      "monthly": "Monthly",
+      "lifetime": "Lifetime"
+    },
+    "planNotes": {
+      "monthly": "Cancel anytime",
+      "lifetime": "One payment, no subscription"
+    },
+    "trial_one": "{{count}} day free, then billed yearly",
+    "trial_few": "{{count}} days free, then billed yearly",
+    "trial_many": "{{count}} days free, then billed yearly",
+    "trial_other": "{{count}} days free, then billed yearly",
+    "startTrial_one": "Try {{count}} day free",
+    "startTrial_few": "Try {{count}} days free",
+    "startTrial_many": "Try {{count}} days free",
+    "startTrial_other": "Try {{count}} days free",
+    "subscribe": "Subscribe",
+    "comingSoon": "Purchases are coming soon. Until then everything works as it is — thanks for your patience!",
+    "priceNote": "The final price is shown in the app store at checkout."
   }
 }

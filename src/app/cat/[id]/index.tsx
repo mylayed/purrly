@@ -14,6 +14,7 @@ import {
   type Cat,
 } from '@/features/cats/api';
 import { useFormatCatAge } from '@/features/cats/use-cat-age';
+import { openPaywall, useCatLimit } from '@/features/subscription/api';
 import { FeedingTile } from '@/features/feeding/components/feeding-tile';
 import { LitterTile } from '@/features/litter/components/litter-tile';
 import { VetTile } from '@/features/vet/components/vet-tile';
@@ -153,9 +154,16 @@ function CatActions({ cat, isOwner }: { cat: Cat; isOwner: boolean }) {
   const { spacing } = useTheme();
   const setArchived = useSetCatArchived(cat);
   const deleteCat = useDeleteCat(cat);
+  const { atLimit } = useCatLimit();
   // Видалення — у два натискання, без системного діалогу (його немає в web).
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const failed = setArchived.isError || deleteCat.isError;
+
+  // Повернення з архіву робить кота знову активним — це теж під лімітом Free.
+  const toggleArchive = () =>
+    cat.archived_at && atLimit && isOwner
+      ? openPaywall('cats')
+      : setArchived.mutate(!cat.archived_at);
 
   return (
     <View style={{ gap: spacing.sm }}>
@@ -163,7 +171,7 @@ function CatActions({ cat, isOwner }: { cat: Cat; isOwner: boolean }) {
         title={cat.archived_at ? t('cats.unarchive') : t('cats.archive')}
         variant="secondary"
         disabled={setArchived.isPending || deleteCat.isPending}
-        onPress={() => setArchived.mutate(!cat.archived_at)}
+        onPress={toggleArchive}
       />
 
       {isOwner &&

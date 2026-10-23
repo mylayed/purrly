@@ -8,6 +8,7 @@ import {
   Avatar,
   Button,
   Card,
+  Chip,
   ErrorBanner,
   Screen,
   SegmentedControl,
@@ -25,6 +26,7 @@ import {
   type Profile,
 } from '@/features/profile/api';
 import { usePreferenceSetters } from '@/features/profile/preferences';
+import { openPaywall } from '@/features/subscription/api';
 import { languageNames, supportedLanguages } from '@/i18n';
 import { useLanguageStore, type LanguagePreference } from '@/stores/language-store';
 import { useSessionStore } from '@/stores/session-store';
@@ -53,6 +55,7 @@ export default function Account() {
       ) : (
         <>
           <ProfileCard profile={profile} />
+          <PlusCard isPlus={profile.is_plus} />
           <PreferencesCard profile={profile} />
           <PrivacyCard />
         </>
@@ -208,7 +211,21 @@ function PreferencesCard({ profile }: { profile: Profile }) {
 
       <View style={{ gap: spacing.sm }}>
         <Text variant="label">{t('settings.language.title')}</Text>
-        <SegmentedControl options={languageOptions} value={language} onChange={setLanguage} />
+        {/* Шість варіантів не вміщаються в сегменти — чипи з перенесенням. */}
+        <View
+          accessibilityRole="radiogroup"
+          style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}
+        >
+          {languageOptions.map((option) => (
+            <Chip
+              key={option.value}
+              role="radio"
+              label={option.label}
+              selected={option.value === language}
+              onPress={() => setLanguage(option.value)}
+            />
+          ))}
+        </View>
       </View>
 
       <View style={{ gap: spacing.sm }}>
@@ -222,6 +239,29 @@ function PreferencesCard({ profile }: { profile: Profile }) {
           onChange={(weight_unit) => updateProfile.mutate({ weight_unit })}
         />
       </View>
+    </Card>
+  );
+}
+
+function PlusCard({ isPlus }: { isPlus: boolean }) {
+  const { t } = useTranslation();
+  const { colors, spacing } = useTheme();
+
+  return (
+    <Card
+      style={{ gap: spacing.sm, backgroundColor: isPlus ? colors.secondaryBg : colors.accentSoft }}
+    >
+      <Text variant="heading">Purrly Plus</Text>
+      <Text tone={isPlus ? 'secondary' : 'muted'}>
+        {isPlus ? t('paywall.alreadyPlus') : t('paywall.accountPitch')}
+      </Text>
+      {!isPlus && (
+        <Button
+          title={t('paywall.cta')}
+          variant="secondary"
+          onPress={() => openPaywall('general')}
+        />
+      )}
     </Card>
   );
 }
