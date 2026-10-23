@@ -4,12 +4,22 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 
 import { Button, Card, ConfirmDeleteButton, ErrorBanner, Text, TextField } from '@/components/ui';
+import { MoodPanel } from '@/features/mood/components/mood-panel';
 import { useTheme } from '@/theme';
 
 import { useDeleteFeedItem, useSaveNote, type FeedItem } from '../api';
 
-// Картка стрічки: фото з підписом або нотатка. Ім'я кота — коли в стрічці кілька котів.
-export function FeedCard({ item, catName }: { item: FeedItem; catName: string | null }) {
+// Картка стрічки: фото з підписом і AI-настроєм або нотатка.
+// Ім'я кота — коли в стрічці кілька котів. autoMood — одразу дізнатися настрій.
+export function FeedCard({
+  item,
+  catName,
+  autoMood = false,
+}: {
+  item: FeedItem;
+  catName: string | null;
+  autoMood?: boolean;
+}) {
   const { t, i18n } = useTranslation();
   const { colors, radii, spacing } = useTheme();
   const deleteItem = useDeleteFeedItem();
@@ -53,6 +63,7 @@ export function FeedCard({ item, catName }: { item: FeedItem; catName: string | 
       ) : (
         <>
           {item.kind === 'photo' && item.photo.caption ? <Text>{item.photo.caption}</Text> : null}
+          {item.kind === 'photo' && <MoodPanel item={item} autoStart={autoMood} />}
           {item.kind === 'note' && (
             <Pressable
               accessibilityRole="button"

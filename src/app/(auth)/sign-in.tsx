@@ -123,6 +123,13 @@ export default function SignIn() {
         <Text tone="muted">{t('auth.welcome')}</Text>
       </View>
 
+      {/* Квіз без реєстрації: спершу «вау», потім акаунт. */}
+      <Card style={{ gap: spacing.sm, backgroundColor: colors.accentSoft }}>
+        <Text variant="bodyStrong">🐱 {t('onboarding.teaserTitle')}</Text>
+        <Text tone="muted">{t('onboarding.teaserBody')}</Text>
+        <Button title={t('onboarding.teaserCta')} onPress={() => router.push('/meet')} />
+      </Card>
+
       <SegmentedControl
         options={[
           { value: 'signIn', label: t('auth.signIn') },

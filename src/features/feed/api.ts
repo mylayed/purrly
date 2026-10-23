@@ -104,16 +104,25 @@ export function useAddPhoto() {
       uri: string;
       caption: string | null;
     }) => {
+      // Перше фото взагалі — стрічка одразу покаже AI-настрій (без натискання).
+      const { count, error: countError } = await supabase
+        .from('photos')
+        .select('id', { count: 'exact', head: true });
+      if (countError) throw countError;
+
       // Шлях {cat_id}/… — так вимагає політика бакета (доступ лише учасникам кота).
       const path = `${catId}/feed/${randomUUID()}.jpg`;
       await uploadImage(PHOTO_BUCKET, path, uri, PHOTO_WIDTH);
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('photos')
-        .insert({ cat_id: catId, storage_path: path, caption });
+        .insert({ cat_id: catId, storage_path: path, caption })
+        .select('id')
+        .single();
       if (error) {
         await removeFiles(PHOTO_BUCKET, [path]);
         throw error;
       }
+      return { id: data.id, isFirst: count === 0 };
     },
     onSuccess: invalidate,
   });

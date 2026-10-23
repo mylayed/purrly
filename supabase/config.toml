@@ -420,3 +420,9 @@ enabled = true
 # Підпис перевіряє withSupabase({ auth: "user" }) у самій функції.
 verify_jwt = false
 entrypoint = "./functions/delete-account/index.ts"
+
+[functions.ai-mood]
+enabled = true
+# Як і delete-account: підпис ES256 перевіряє withSupabase({ auth: "user" }) у самій функції.
+verify_jwt = false
+entrypoint = "./functions/ai-mood/index.ts"

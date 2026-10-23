@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { PlusIcon } from '@/components/icons';
-import { Button, EmptyState, ErrorBanner, Screen, Text } from '@/components/ui';
+import { Button, Card, EmptyState, ErrorBanner, Screen, Text } from '@/components/ui';
 import { useCats } from '@/features/cats/api';
 import { CatCard } from '@/features/cats/components/cat-card';
 import { useProfile } from '@/features/profile/api';
@@ -98,6 +98,16 @@ export default function Home() {
           {showArchived && archived.map((cat) => <CatCard key={cat.id} cat={cat} />)}
         </View>
       )}
+
+      <Card style={{ gap: spacing.sm, backgroundColor: colors.accentSoft }}>
+        <Text variant="bodyStrong">🐱 {t('onboarding.teaserTitle')}</Text>
+        <Text tone="muted">{t('onboarding.teaserBody')}</Text>
+        <Button
+          title={t('onboarding.teaserCta')}
+          variant="secondary"
+          onPress={() => router.push('/meet')}
+        />
+      </Card>
     </Screen>
   );
 }

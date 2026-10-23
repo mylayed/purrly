@@ -11,7 +11,10 @@
     "ios": {
       "bundleIdentifier": "com.mylayed.purrly",
       "usesAppleSignIn": true,
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.mylayed.purrly",

@@ -10,6 +10,7 @@ import { useFeed, type FeedItem } from '@/features/feed/api';
 import { Composer } from '@/features/feed/components/composer';
 import { FeedCard } from '@/features/feed/components/feed-card';
 import { useFeedingFormat } from '@/features/feeding/use-feeding-format';
+import { MoodOfTheDay } from '@/features/mood/components/mood-of-the-day';
 import { localDayKey } from '@/lib/feeding';
 import { useTheme } from '@/theme';
 
@@ -20,6 +21,8 @@ export default function Feed() {
   // null — усі коти.
   const [catFilter, setCatFilter] = useState<string | null>(null);
   const [composing, setComposing] = useState(false);
+  // Перше фото користувача: його AI-настрій показуємо одразу («вау» за кілька секунд).
+  const [autoMoodPhotoId, setAutoMoodPhotoId] = useState<string | null>(null);
   const feed = useFeed(catFilter);
   const fmt = useFeedingFormat();
 
@@ -69,11 +72,21 @@ export default function Feed() {
         </View>
       )}
 
+      {feed.data && (
+        <MoodOfTheDay
+          items={feed.data}
+          catName={(id) => (activeCats.length > 1 ? (catNames.get(id) ?? null) : null)}
+        />
+      )}
+
       {composing ? (
         <Composer
           cats={activeCats}
           defaultCatId={catFilter ?? activeCats[0]!.id}
-          onDone={() => setComposing(false)}
+          onDone={(firstPhotoId) => {
+            setComposing(false);
+            if (firstPhotoId) setAutoMoodPhotoId(firstPhotoId);
+          }}
         />
       ) : (
         activeCats.length > 0 && (
@@ -111,6 +124,7 @@ export default function Feed() {
                 key={`${item.kind}-${item.id}`}
                 item={item}
                 catName={showCatNames ? (catNames.get(item.catId) ?? null) : null}
+                autoMood={item.kind === 'photo' && item.id === autoMoodPhotoId}
               />
             ))}
           </View>

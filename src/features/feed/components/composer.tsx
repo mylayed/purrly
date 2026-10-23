@@ -33,7 +33,8 @@ export function Composer({
 }: {
   cats: Cat[];
   defaultCatId: string;
-  onDone: () => void;
+  // firstPhotoId — перше фото користувача: стрічка одразу покаже його AI-настрій.
+  onDone: (firstPhotoId?: string) => void;
 }) {
   const { t } = useTranslation();
   const { colors, radii, spacing } = useTheme();
@@ -72,9 +73,12 @@ export function Composer({
     setShowValidation(true);
     if (validationError || pending) return;
     if (mode === 'photo') {
-      addPhoto.mutate({ catId, uri: uri!, caption: text.trim() || null }, { onSuccess: onDone });
+      addPhoto.mutate(
+        { catId, uri: uri!, caption: text.trim() || null },
+        { onSuccess: ({ id, isFirst }) => onDone(isFirst ? id : undefined) },
+      );
     } else {
-      saveNote.mutate({ catId, body: text.trim() }, { onSuccess: onDone });
+      saveNote.mutate({ catId, body: text.trim() }, { onSuccess: () => onDone() });
     }
   }
 
@@ -172,7 +176,7 @@ export function Composer({
           title={t('deleteAccount.cancel')}
           variant="ghost"
           disabled={pending}
-          onPress={onDone}
+          onPress={() => onDone()}
         />
       </View>
     </Card>

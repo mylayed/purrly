@@ -70,6 +70,8 @@ function RootStack() {
         <Stack.Protected guard={!signedIn} redirectTo={home}>
           <Stack.Screen name="(auth)" />
         </Stack.Protected>
+        {/* Квіз «Познайомся з котом» — і до входу, і після. */}
+        <Stack.Screen name="(onboarding)" />
       </Stack>
     </>
   );

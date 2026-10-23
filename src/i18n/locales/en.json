@@ -549,5 +549,127 @@
     "dayA11y": "{{day}}: pee {{pee}}, poop {{poop}}",
     "todayMarks": "Today’s marks",
     "delete": "Delete mark"
+  },
+  "mood": {
+    "find": "✨ Read the mood",
+    "reading": "Reading the mood…",
+    "label": "Mood: {{mood}}",
+    "noCat": "We can’t see a cat in this photo — try another one.",
+    "ofTheDay": "Mood of the day",
+    "ofTheDayFor": "Mood of the day · {{cat}}",
+    "ofTheDayEmpty": "Add a photo of your cat and tap “Read the mood” — AI picks a mood and a caption for your story.",
+    "remaining_one": "{{count}} AI photo left this week.",
+    "remaining_few": "{{count}} AI photos left this week.",
+    "remaining_many": "{{count}} AI photos left this week.",
+    "remaining_other": "{{count}} AI photos left this week.",
+    "moods": {
+      "sleepy": "sleepy",
+      "playful": "playful",
+      "curious": "curious",
+      "grumpy": "grumpy",
+      "cozy": "cozy",
+      "hungry": "hungry",
+      "zen": "zen",
+      "sassy": "sassy",
+      "alert": "alert",
+      "affectionate": "affectionate"
+    },
+    "errors": {
+      "limit": "You’ve used this week’s free AI photos. The next one is available {{date}}.",
+      "busy": "The AI is busy right now. Try again in a minute.",
+      "no_result": "Couldn’t read the mood from this photo. Try another one.",
+      "not_found": "Photo not found. It may have been deleted.",
+      "failed": "Couldn’t read the mood. Check your connection and try again."
+    }
+  },
+  "share": {
+    "share": "Share",
+    "preparing": "Preparing the image…",
+    "close": "Close",
+    "copied": "Text copied — paste it into your story.",
+    "error": "Couldn’t share. Try again.",
+    "copyManually": "Copy the text and paste it into your story:"
+  },
+  "onboarding": {
+    "title": "Meet your cat",
+    "teaserTitle": "What’s your cat’s personality?",
+    "teaserBody": "5 questions and you get a personality type with a card for your story. No sign-up needed.",
+    "teaserCta": "Take the quiz",
+    "introTitle": "What is your cat like?",
+    "introBody": "Answer honestly — the cat won’t find out.",
+    "nameLabel": "Your cat’s name",
+    "nameHint": "Optional — it goes on the card.",
+    "start": "Start",
+    "progress": "Question {{current}} of {{total}}",
+    "back": "Back",
+    "result": "Your cat is",
+    "resultFor": "{{name}} is",
+    "again": "Take it again",
+    "toHome": "Go to home",
+    "signUpPitch": "Liked it? Purrly keeps your cat’s diary: weight, food, vaccinations and an AI mood from photos.",
+    "signUp": "Start my cat’s diary",
+    "questions": {
+      "greeting": {
+        "title": "You come home. Your cat…",
+        "runs": "Runs to meet you, purring",
+        "sofa": "Looks up from the sofa: “Oh, it’s you”",
+        "ambush": "Hides, then ambushes you from around the corner",
+        "bags": "Is already inspecting your shopping bags"
+      },
+      "spot": {
+        "title": "Your cat’s favourite spot is…",
+        "top": "The highest shelf in the house",
+        "lap": "You. On you. Always",
+        "box": "A box, any box",
+        "everywhere": "Somewhere new every day"
+      },
+      "night": {
+        "title": "It’s 4 a.m. Your cat…",
+        "zoomies": "Is racing up and down the hallway",
+        "hunts": "Is hunting something invisible",
+        "stares": "Is staring at the wall. For a long time",
+        "face": "Is asleep on your face"
+      },
+      "newThing": {
+        "title": "Something new appears at home. Your cat…",
+        "inspects": "Sniffs it and studies it from every side",
+        "pushes": "Pushes it onto the floor",
+        "ignores": "Pretends it doesn’t exist",
+        "watches": "Watches it from afar for an hour"
+      },
+      "toy": {
+        "title": "The best toy is…",
+        "mouse": "A mouse to hunt",
+        "boxOfToy": "The box the toy came in",
+        "hands": "Your hands and feet",
+        "beneath": "Toys are beneath them"
+      }
+    },
+    "types": {
+      "royal": {
+        "name": "Royalty",
+        "description": "Takes your love as a given, and now and then graciously allows a pat."
+      },
+      "cuddler": {
+        "name": "Cuddler",
+        "description": "Happiest on your lap. One look and the purring starts."
+      },
+      "explorer": {
+        "name": "Explorer",
+        "description": "Every cupboard is new land, every bag an expedition."
+      },
+      "hunter": {
+        "name": "Hunter",
+        "description": "No fly, string or sock escapes these paws."
+      },
+      "philosopher": {
+        "name": "Philosopher",
+        "description": "Sees what you can’t. Wisdom lives in a box."
+      },
+      "chaos": {
+        "name": "Agent of chaos",
+        "description": "Midnight zoomies, things knocked off tables and zero regrets."
+      }
+    }
   }
 }
