@@ -59,9 +59,7 @@ export default function CatFeeding() {
   const openFoods = () => router.push({ pathname: '/cat/[id]/feeding/foods', params: { id } });
 
   return (
-    <Screen scroll>
-      <ScreenHeader title={title} backLabel={t('cats.back')} />
-
+    <Screen scroll header={<ScreenHeader title={title} backLabel={t('cats.back')} />}>
       {today.isPending ? (
         <ActivityIndicator color={colors.accent} />
       ) : today.isError ? (

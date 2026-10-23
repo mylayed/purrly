@@ -71,9 +71,7 @@ export default function CatWeight() {
     );
 
   return (
-    <Screen scroll>
-      <ScreenHeader title={title} backLabel={t('cats.back')} />
-
+    <Screen scroll header={<ScreenHeader title={title} backLabel={t('cats.back')} />}>
       {isPending ? (
         <ActivityIndicator color={colors.accent} />
       ) : isError ? (

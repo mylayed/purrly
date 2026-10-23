@@ -14,8 +14,7 @@ export default function EditCat() {
   const { data: cat, isPending, isError } = useCat(id);
 
   return (
-    <Screen scroll>
-      <ScreenHeader title={t('cats.editTitle')} backLabel={t('cats.back')} />
+    <Screen scroll header={<ScreenHeader title={t('cats.editTitle')} backLabel={t('cats.back')} />}>
       {cat ? (
         <EditForm cat={cat} />
       ) : isPending ? (

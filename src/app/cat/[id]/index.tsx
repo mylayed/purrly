@@ -28,8 +28,7 @@ export default function CatProfile() {
   if (cat) return <CatProfileContent cat={cat} />;
 
   return (
-    <Screen>
-      <ScreenHeader title="" backLabel={t('cats.back')} />
+    <Screen header={<ScreenHeader title="" backLabel={t('cats.back')} />}>
       {isPending ? (
         <ActivityIndicator color={colors.accent} />
       ) : isError ? (
@@ -67,31 +66,39 @@ function CatProfileContent({ cat }: { cat: Cat }) {
   ];
 
   return (
-    <Screen scroll>
-      <ScreenHeader
-        title={cat.name}
-        backLabel={t('cats.back')}
-        right={
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t('cats.editTitle')}
-            hitSlop={8}
-            onPressIn={() => setEditPresses((n) => n + 1)}
-            onPress={() => router.push({ pathname: '/cat/[id]/edit', params: { id: cat.id } })}
-            style={({ pressed }) => ({
-              width: 40,
-              height: 40,
-              borderRadius: radii.pill,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: pressed ? colors.accentSoft : colors.card,
-            })}
-          >
-            <SquarePenIcon size={20} color={colors.text} strokeWidth={2.25} trigger={editPresses} />
-          </Pressable>
-        }
-      />
-
+    <Screen
+      scroll
+      header={
+        <ScreenHeader
+          title={cat.name}
+          backLabel={t('cats.back')}
+          right={
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t('cats.editTitle')}
+              hitSlop={8}
+              onPressIn={() => setEditPresses((n) => n + 1)}
+              onPress={() => router.push({ pathname: '/cat/[id]/edit', params: { id: cat.id } })}
+              style={({ pressed }) => ({
+                width: 40,
+                height: 40,
+                borderRadius: radii.pill,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: pressed ? colors.accentSoft : colors.card,
+              })}
+            >
+              <SquarePenIcon
+                size={20}
+                color={colors.text}
+                strokeWidth={2.25}
+                trigger={editPresses}
+              />
+            </Pressable>
+          }
+        />
+      }
+    >
       <View style={{ alignItems: 'center', gap: spacing.xs }}>
         <Avatar uri={photoUrl} name={cat.name} size={112} />
         {age && <Text variant="heading">{age.text}</Text>}

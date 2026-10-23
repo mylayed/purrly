@@ -10,8 +10,7 @@ export default function NewCat() {
   const createCat = useCreateCat();
 
   return (
-    <Screen scroll>
-      <ScreenHeader title={t('cats.newTitle')} backLabel={t('cats.back')} />
+    <Screen scroll header={<ScreenHeader title={t('cats.newTitle')} backLabel={t('cats.back')} />}>
       <CatForm
         submitLabel={t('cats.form.create')}
         pending={createCat.isPending}

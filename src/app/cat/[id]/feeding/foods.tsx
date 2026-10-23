@@ -43,9 +43,7 @@ export default function CatFoods() {
   const title = cat ? `${t('feeding.foods.title')} · ${cat.name}` : t('feeding.foods.title');
 
   return (
-    <Screen scroll>
-      <ScreenHeader title={title} backLabel={t('cats.back')} />
-
+    <Screen scroll header={<ScreenHeader title={title} backLabel={t('cats.back')} />}>
       {isPending ? (
         <ActivityIndicator color={colors.accent} />
       ) : isError ? (

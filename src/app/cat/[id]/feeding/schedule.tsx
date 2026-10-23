@@ -54,9 +54,7 @@ export default function FeedingSchedule() {
   const slots = schedule.data ?? [];
 
   return (
-    <Screen scroll>
-      <ScreenHeader title={title} backLabel={t('cats.back')} />
-
+    <Screen scroll header={<ScreenHeader title={title} backLabel={t('cats.back')} />}>
       {schedule.isPending || foods.isPending ? (
         <ActivityIndicator color={colors.accent} />
       ) : schedule.isError || foods.isError ? (
