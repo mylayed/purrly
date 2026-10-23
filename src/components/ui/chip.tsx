@@ -15,6 +15,8 @@ export function Chip({ label, selected = false, ...rest }: ChipProps) {
   return (
     <Pressable
       accessibilityRole="checkbox"
+      // Явна назва: у web вона не береться з тексту всередині.
+      accessibilityLabel={label}
       accessibilityState={{ checked: selected }}
       style={({ pressed }) => ({
         minHeight: 40,

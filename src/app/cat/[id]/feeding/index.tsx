@@ -70,7 +70,7 @@ export default function CatFeeding() {
       ) : isEmpty && !adding ? (
         <View style={{ minHeight: 360 }}>
           <EmptyState
-            icon={<UtensilsIcon size={40} color={colors.accent} strokeWidth={1.75} />}
+            icon={<UtensilsIcon size={22} color={colors.accent} strokeWidth={2} />}
             title={t('feeding.emptyTitle')}
             body={t('feeding.emptyBody')}
             action={

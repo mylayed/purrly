@@ -10,7 +10,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Path, Rect } from 'react-native-svg';
+import { Circle, Path, Rect } from 'react-native-svg';
 
 import {
   AnimatedCircle,
@@ -481,6 +481,73 @@ export function CheckIcon({
   return (
     <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
       <AnimatedPath d="M20 6 9 17l-5-5" strokeDasharray={CHECK_LENGTH} animatedProps={props} />
+    </IconSvg>
+  );
+}
+
+// ── Статичні іконки Lucide того ж стилю (у lucide-animated їх немає) ──────────────
+export function StethoscopeIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+}: IconProps) {
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <Path d="M11 2v2" />
+      <Path d="M5 2v2" />
+      <Path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1" />
+      <Path d="M8 15a6 6 0 0 0 12 0v-3" />
+      <Circle cx="20" cy="10" r="2" />
+    </IconSvg>
+  );
+}
+
+export function PawPrintIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+}: IconProps) {
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <Circle cx="11" cy="4" r="2" />
+      <Circle cx="18" cy="8" r="2" />
+      <Circle cx="20" cy="16" r="2" />
+      <Path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z" />
+    </IconSvg>
+  );
+}
+
+export function StickyNoteIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+}: IconProps) {
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <Path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z" />
+      <Path d="M15 3v4a2 2 0 0 0 2 2h4" />
+    </IconSvg>
+  );
+}
+
+export function CameraIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+}: IconProps) {
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <Path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+      <Circle cx="12" cy="13" r="3" />
+    </IconSvg>
+  );
+}
+
+export function PillIcon({ size = DEFAULT_SIZE, color, strokeWidth = DEFAULT_STROKE }: IconProps) {
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <Path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" />
+      <Path d="m8.5 8.5 7 7" />
     </IconSvg>
   );
 }

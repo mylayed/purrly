@@ -55,3 +55,25 @@ export async function pickSquareImage() {
   if (result.canceled || !result.assets[0]) return null;
   return result.assets[0].uri;
 }
+
+// Фото з галереї без обрізки (для стрічки). null — користувач передумав.
+export async function pickImage() {
+  const ImagePicker = await import('expo-image-picker');
+  const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 1 });
+  if (result.canceled || !result.assets[0]) return null;
+  return result.assets[0].uri;
+}
+
+// Кілька підписаних посилань одним запитом (стрічка показує десятки фото).
+export async function signedUrls(bucket: Bucket, paths: string[]) {
+  if (paths.length === 0) return new Map<string, string>();
+  const { data, error } = await supabase.storage
+    .from(bucket)
+    .createSignedUrls(paths, SIGNED_URL_TTL_SECONDS);
+  if (error) throw error;
+  return new Map(
+    data.flatMap((item) => (item.path && item.signedUrl ? [[item.path, item.signedUrl]] : [])),
+  );
+}
+
+export const SIGNED_URL_STALE_MS = (SIGNED_URL_TTL_SECONDS - 5 * 60) * 1000;

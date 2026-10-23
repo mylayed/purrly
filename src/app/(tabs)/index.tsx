@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
-import { CatIcon, PlusIcon } from '@/components/icons';
+import { PlusIcon } from '@/components/icons';
 import { Button, EmptyState, ErrorBanner, Screen, Text } from '@/components/ui';
 import { useCats } from '@/features/cats/api';
 import { CatCard } from '@/features/cats/components/cat-card';
@@ -42,7 +42,6 @@ export default function Home() {
           </View>
         ) : (
           <EmptyState
-            icon={<CatIcon size={40} color={colors.accent} strokeWidth={1.75} />}
             title={t('home.emptyTitle')}
             body={t('home.emptyBody')}
             action={<Button title={t('cats.add')} onPress={addCat} />}

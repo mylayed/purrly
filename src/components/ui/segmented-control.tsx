@@ -36,7 +36,9 @@ export function SegmentedControl<T extends string>({
           <Pressable
             key={option.value}
             accessibilityRole="radio"
-            accessibilityState={{ selected }}
+            // Явна назва: у web вона не береться з тексту всередині.
+            accessibilityLabel={option.label}
+            accessibilityState={{ checked: selected }}
             onPress={() => onChange(option.value)}
             style={{
               flex: 1,

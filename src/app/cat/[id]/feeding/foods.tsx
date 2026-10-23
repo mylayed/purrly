@@ -54,7 +54,7 @@ export default function CatFoods() {
       ) : foods.length === 0 && !editing ? (
         <View style={{ minHeight: 360 }}>
           <EmptyState
-            icon={<UtensilsIcon size={40} color={colors.accent} strokeWidth={1.75} />}
+            icon={<UtensilsIcon size={22} color={colors.accent} strokeWidth={2} />}
             title={t('feeding.foods.emptyTitle')}
             body={t('feeding.foods.emptyBody')}
             action={<Button title={t('feeding.foods.add')} onPress={() => setEditing('new')} />}

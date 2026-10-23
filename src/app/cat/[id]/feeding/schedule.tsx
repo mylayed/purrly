@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Pressable, Switch, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { UtensilsIcon } from '@/components/icons';
 import {
@@ -16,6 +16,7 @@ import {
   ScreenHeader,
   Text,
   TextField,
+  Toggle,
 } from '@/components/ui';
 import { useCat } from '@/features/cats/api';
 import {
@@ -69,7 +70,7 @@ export default function FeedingSchedule() {
       ) : slots.length === 0 && !editing ? (
         <View style={{ minHeight: 360 }}>
           <EmptyState
-            icon={<UtensilsIcon size={40} color={colors.accent} strokeWidth={1.75} />}
+            icon={<UtensilsIcon size={22} color={colors.accent} strokeWidth={2} />}
             title={t('feeding.schedule.emptyTitle')}
             body={t('feeding.schedule.emptyBody')}
             action={<Button title={t('feeding.schedule.add')} onPress={() => setEditing('new')} />}
@@ -172,17 +173,11 @@ function SlotCard({
           </Text>
         )}
       </Pressable>
-      <Switch
+      <Toggle
         accessibilityLabel={t('feeding.schedule.enabledA11y', { time })}
         value={slot.enabled}
         onValueChange={toggle}
         disabled={saveSlot.isPending}
-        trackColor={{ false: colors.border, true: colors.accent }}
-        thumbColor={colors.card}
-        ios_backgroundColor={colors.border}
-        // react-native-web бере колір увімкненого повзунка лише з activeThumbColor,
-        // якого немає в типах React Native.
-        {...({ activeThumbColor: colors.card } as object)}
       />
       <ConfirmDeleteButton
         label={t('feeding.schedule.delete')}

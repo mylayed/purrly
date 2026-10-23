@@ -12,6 +12,7 @@ import {
   type IconProps,
 } from '@/components/icons';
 import { useApplyProfilePreferences } from '@/features/profile/preferences';
+import { useReminderSync } from '@/features/reminders/use-reminder-sync';
 import { fonts, useTheme } from '@/theme';
 
 // Вміст таб-бару: вкладка (5 відступ + 28 іконка + 16 підпис + 5 відступ) і рамка 1.
@@ -39,6 +40,7 @@ export default function TabsLayout() {
   const { colors, spacing } = useTheme();
   const insets = useSafeAreaInsets();
   useApplyProfilePreferences();
+  useReminderSync();
 
   return (
     <Tabs

@@ -45,6 +45,13 @@
           "photosPermission": "Purrly uses your photos so you can set a profile picture and add photos of your cats.",
           "microphonePermission": false
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#E8875B",
+          "enableRemoteNotifications": false
+        }
       ]
     ],
     "experiments": {

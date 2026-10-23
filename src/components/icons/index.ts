@@ -2,6 +2,7 @@ export type { IconProps } from './base';
 export {
   BadgeAlertIcon,
   BellIcon,
+  CameraIcon,
   CatIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -10,8 +11,12 @@ export {
   DeleteIcon,
   GalleryThumbnailsIcon,
   HomeIcon,
+  PawPrintIcon,
+  PillIcon,
   PlusIcon,
   SquarePenIcon,
+  StethoscopeIcon,
+  StickyNoteIcon,
   UserIcon,
   UtensilsIcon,
 } from './icons';

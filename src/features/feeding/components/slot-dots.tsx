@@ -6,11 +6,7 @@ import { useTheme } from '@/theme';
 export function SlotDots({ done, total }: { done: number; total: number }) {
   const { colors, spacing } = useTheme();
   return (
-    <View
-      importantForAccessibility="no-hide-descendants"
-      accessibilityElementsHidden
-      style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.xs }}
-    >
+    <View aria-hidden style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.xs }}>
       {Array.from({ length: total }, (_, i) => (
         <View
           key={i}

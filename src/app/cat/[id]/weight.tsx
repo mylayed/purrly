@@ -82,7 +82,7 @@ export default function CatWeight() {
       ) : weights.length === 0 && !adding ? (
         <View style={{ minHeight: 360 }}>
           <EmptyState
-            icon={<ChartLineIcon size={40} color={colors.accent} strokeWidth={1.75} autoPlay />}
+            icon={<ChartLineIcon size={22} color={colors.accent} strokeWidth={2} autoPlay />}
             title={t('weight.emptyTitle')}
             body={t('weight.emptyBody')}
             action={<Button title={t('weight.add')} onPress={() => setAdding(true)} />}

@@ -13,3 +13,4 @@ export { SegmentedControl, type SegmentedOption } from './segmented-control';
 export { StatusBanner } from './status-banner';
 export { Text, type TextProps } from './text';
 export { TextField, type TextFieldProps } from './text-field';
+export { Toggle } from './toggle';
