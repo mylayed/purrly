@@ -6,10 +6,12 @@ export {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChartLineIcon,
+  CheckIcon,
   DeleteIcon,
   GalleryThumbnailsIcon,
   HomeIcon,
   PlusIcon,
   SquarePenIcon,
   UserIcon,
+  UtensilsIcon,
 } from './icons';

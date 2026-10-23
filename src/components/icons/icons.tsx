@@ -440,3 +440,47 @@ export function BadgeAlertIcon({
     </Animated.View>
   );
 }
+
+// ── utensils: у lucide-animated немає — статична іконка Lucide того ж стилю ──────
+export function UtensilsIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+}: IconProps) {
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <Path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+      <Path d="M7 2v20" />
+      <Path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+    </IconSvg>
+  );
+}
+
+// ── check: галочка «малюється» (pathLength 0→1, opacity 0→1, 0.4 s) ───────────────
+const CHECK_LENGTH = 22.7;
+
+export function CheckIcon({
+  size = DEFAULT_SIZE,
+  color,
+  strokeWidth = DEFAULT_STROKE,
+  trigger,
+  autoPlay = false,
+}: IconProps) {
+  const progress = useSharedValue(1);
+
+  useIconAnimation(trigger, autoPlay, () => {
+    progress.value = 0;
+    progress.value = withTiming(1, { duration: 400, easing: easeInOut });
+  });
+
+  const props = useAnimatedProps(() => ({
+    strokeDashoffset: CHECK_LENGTH * (1 - progress.value),
+    opacity: Math.min(1, progress.value * 4),
+  }));
+
+  return (
+    <IconSvg size={size} color={color} strokeWidth={strokeWidth}>
+      <AnimatedPath d="M20 6 9 17l-5-5" strokeDasharray={CHECK_LENGTH} animatedProps={props} />
+    </IconSvg>
+  );
+}

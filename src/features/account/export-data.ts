@@ -7,6 +7,7 @@ const catTables = [
   'cats',
   'cat_members',
   'weights',
+  'cat_foods',
   'meals',
   'feeding_schedule',
   'vet_events',

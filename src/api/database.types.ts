@@ -29,6 +29,47 @@ export type Database = {
         };
         Relationships: [];
       };
+      cat_foods: {
+        Row: {
+          cat_id: string;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          kcal_per_100g: number | null;
+          kind: Database['public']['Enums']['food_kind'];
+          name: string;
+          updated_at: string;
+        };
+        Insert: {
+          cat_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          kcal_per_100g?: number | null;
+          kind?: Database['public']['Enums']['food_kind'];
+          name: string;
+          updated_at?: string;
+        };
+        Update: {
+          cat_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          kcal_per_100g?: number | null;
+          kind?: Database['public']['Enums']['food_kind'];
+          name?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'cat_foods_cat_id_fkey';
+            columns: ['cat_id'];
+            isOneToOne: false;
+            referencedRelation: 'cats';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       cat_members: {
         Row: {
           cat_id: string;
@@ -111,6 +152,7 @@ export type Database = {
           created_by: string;
           days_of_week: number[];
           enabled: boolean;
+          food_id: string | null;
           food_name: string | null;
           id: string;
           time_of_day: string;
@@ -123,6 +165,7 @@ export type Database = {
           created_by?: string;
           days_of_week?: number[];
           enabled?: boolean;
+          food_id?: string | null;
           food_name?: string | null;
           id?: string;
           time_of_day: string;
@@ -135,12 +178,20 @@ export type Database = {
           created_by?: string;
           days_of_week?: number[];
           enabled?: boolean;
+          food_id?: string | null;
           food_name?: string | null;
           id?: string;
           time_of_day?: string;
           updated_at?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: 'feeding_schedule_food_id_cat_id_fkey';
+            columns: ['food_id', 'cat_id'];
+            isOneToOne: false;
+            referencedRelation: 'cat_foods';
+            referencedColumns: ['id', 'cat_id'];
+          },
           {
             foreignKeyName: 'feeding_schedule_cat_id_fkey';
             columns: ['cat_id'];
@@ -195,9 +246,11 @@ export type Database = {
           created_at: string;
           created_by: string;
           fed_at: string;
+          food_id: string | null;
           food_name: string | null;
           id: string;
           note: string | null;
+          schedule_id: string | null;
         };
         Insert: {
           amount_grams?: number | null;
@@ -205,9 +258,11 @@ export type Database = {
           created_at?: string;
           created_by?: string;
           fed_at?: string;
+          food_id?: string | null;
           food_name?: string | null;
           id?: string;
           note?: string | null;
+          schedule_id?: string | null;
         };
         Update: {
           amount_grams?: number | null;
@@ -215,11 +270,27 @@ export type Database = {
           created_at?: string;
           created_by?: string;
           fed_at?: string;
+          food_id?: string | null;
           food_name?: string | null;
           id?: string;
           note?: string | null;
+          schedule_id?: string | null;
         };
         Relationships: [
+          {
+            foreignKeyName: 'meals_food_id_cat_id_fkey';
+            columns: ['food_id', 'cat_id'];
+            isOneToOne: false;
+            referencedRelation: 'cat_foods';
+            referencedColumns: ['id', 'cat_id'];
+          },
+          {
+            foreignKeyName: 'meals_schedule_id_cat_id_fkey';
+            columns: ['schedule_id', 'cat_id'];
+            isOneToOne: false;
+            referencedRelation: 'feeding_schedule';
+            referencedColumns: ['id', 'cat_id'];
+          },
           {
             foreignKeyName: 'meals_cat_id_fkey';
             columns: ['cat_id'];
@@ -508,6 +579,7 @@ export type Database = {
     Enums: {
       cat_member_role: 'owner' | 'family';
       cat_sex: 'male' | 'female' | 'unknown';
+      food_kind: 'dry' | 'wet' | 'treat' | 'other';
       litter_kind: 'pee' | 'poop' | 'both';
       reminder_type: 'feeding' | 'medication' | 'vaccination' | 'vet_visit' | 'custom';
       theme_preference: 'system' | 'light' | 'dark';
@@ -636,6 +708,7 @@ export const Constants = {
     Enums: {
       cat_member_role: ['owner', 'family'],
       cat_sex: ['male', 'female', 'unknown'],
+      food_kind: ['dry', 'wet', 'treat', 'other'],
       litter_kind: ['pee', 'poop', 'both'],
       reminder_type: ['feeding', 'medication', 'vaccination', 'vet_visit', 'custom'],
       theme_preference: ['system', 'light', 'dark'],

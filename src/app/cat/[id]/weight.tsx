@@ -1,12 +1,14 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Pressable, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
-import { ChartLineIcon, DeleteIcon, PlusIcon } from '@/components/icons';
+import { ChartLineIcon } from '@/components/icons';
 import {
+  AddButton,
   Button,
   Card,
+  ConfirmDeleteButton,
   EmptyState,
   ErrorBanner,
   Screen,
@@ -45,7 +47,6 @@ export default function CatWeight() {
   const fmt = useWeightFormat();
   const [range, setRange] = useState<Range>('m3');
   const [adding, setAdding] = useState(false);
-  const [addPresses, setAddPresses] = useState(0);
 
   const title = cat ? `${t('weight.title')} · ${cat.name}` : t('weight.title');
   const latest = weights?.[weights.length - 1];
@@ -136,25 +137,7 @@ export default function CatWeight() {
           {adding ? (
             <AddWeightForm catId={id} onDone={() => setAdding(false)} />
           ) : (
-            <Pressable
-              accessibilityRole="button"
-              onPressIn={() => setAddPresses((n) => n + 1)}
-              onPress={() => setAdding(true)}
-              style={({ pressed }) => ({
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: spacing.sm,
-                minHeight: 48,
-                borderRadius: 999,
-                backgroundColor: pressed ? colors.accentPressed : colors.accent,
-              })}
-            >
-              <PlusIcon size={18} color={colors.onAccent} strokeWidth={2.5} trigger={addPresses} />
-              <Text variant="label" tone="onAccent">
-                {t('weight.add')}
-              </Text>
-            </Pressable>
+            <AddButton title={t('weight.add')} onPress={() => setAdding(true)} />
           )}
 
           {weights.length > 0 && <History catId={id} weights={weights} formatDate={formatDate} />}
@@ -293,11 +276,9 @@ function HistoryRow({
   formatDate: (time: number) => string;
 }) {
   const { t } = useTranslation();
-  const { colors, radii, spacing } = useTheme();
+  const { spacing } = useTheme();
   const fmt = useWeightFormat();
   const deleteWeight = useDeleteWeight(catId);
-  const [confirming, setConfirming] = useState(false);
-  const [presses, setPresses] = useState(0);
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
@@ -312,34 +293,11 @@ function HistoryRow({
       <Text variant="bodyStrong" style={{ fontVariant: ['tabular-nums'] }}>
         {fmt.format(entry.weight_grams)}
       </Text>
-      {confirming ? (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('weight.delete')}
-          onPress={() => deleteWeight.mutate(entry.id)}
-          hitSlop={8}
-          style={{
-            paddingHorizontal: spacing.sm,
-            paddingVertical: spacing.xs,
-            borderRadius: radii.pill,
-            backgroundColor: colors.dangerBg,
-          }}
-        >
-          <Text variant="caption" tone="danger">
-            {t('weight.deleteConfirm')}
-          </Text>
-        </Pressable>
-      ) : (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('weight.delete')}
-          onPressIn={() => setPresses((n) => n + 1)}
-          onPress={() => setConfirming(true)}
-          hitSlop={12}
-        >
-          <DeleteIcon size={20} color={colors.textMuted} trigger={presses} />
-        </Pressable>
-      )}
+      <ConfirmDeleteButton
+        label={t('weight.delete')}
+        confirmLabel={t('weight.deleteConfirm')}
+        onConfirm={() => deleteWeight.mutate(entry.id)}
+      />
     </View>
   );
 }
