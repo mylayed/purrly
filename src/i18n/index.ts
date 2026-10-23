@@ -1,6 +1,8 @@
 import { createInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+// До першого перекладу: без Intl.PluralRules (Hermes) множина в українській ламається.
+import './plural-rules';
 import { fallbackLanguage, getDeviceLanguage, supportedLanguages } from './languages';
 import en from './locales/en.json';
 import uk from './locales/uk.json';

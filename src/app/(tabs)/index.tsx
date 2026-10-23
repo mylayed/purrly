@@ -71,7 +71,7 @@ export default function Home() {
             alignItems: 'center',
             gap: spacing.xs,
             paddingHorizontal: spacing.md,
-            paddingVertical: spacing.xs,
+            paddingVertical: spacing.sm,
             borderRadius: radii.pill,
             backgroundColor: pressed ? colors.accentPressed : colors.accent,
           })}
