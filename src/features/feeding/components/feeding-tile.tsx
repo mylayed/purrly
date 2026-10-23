@@ -1,10 +1,9 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Pressable, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
-import { ChevronRightIcon, UtensilsIcon } from '@/components/icons';
-import { Button, Text } from '@/components/ui';
+import { UtensilsIcon } from '@/components/icons';
+import { Button, ProfileTile, Text } from '@/components/ui';
 import { useTheme } from '@/theme';
 
 import { useFeedingFormat } from '../use-feeding-format';
@@ -14,37 +13,20 @@ import { SlotDots } from './slot-dots';
 // Плитка на профілі кота: годування на сьогодні й наступне за графіком.
 export function FeedingTile({ catId }: { catId: string }) {
   const { t } = useTranslation();
-  const { colors, radii, spacing } = useTheme();
+  const { colors, spacing } = useTheme();
   const today = useFeedingToday(catId);
   const fmt = useFeedingFormat();
-  const [presses, setPresses] = useState(0);
 
   const open = () => router.push({ pathname: '/cat/[id]/feeding', params: { id: catId } });
   const openSchedule = () =>
     router.push({ pathname: '/cat/[id]/feeding/schedule', params: { id: catId } });
   const done = today.slots.filter((s) => today.mealBySlot.has(s.id)).length;
   const hasAnything = today.schedule.length > 0 || today.allMeals.length > 0;
+  // Порожня плитка має власну кнопку, тож сама не натискається.
+  const isEmpty = !today.isPending && !hasAnything;
 
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={t('feeding.title')}
-      onPressIn={() => setPresses((n) => n + 1)}
-      onPress={open}
-      style={({ pressed }) => ({
-        gap: spacing.md,
-        padding: spacing.lg,
-        borderRadius: radii.lg,
-        backgroundColor: pressed ? colors.accentSoft : colors.card,
-      })}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text variant="heading" style={{ flex: 1 }}>
-          {t('feeding.title')}
-        </Text>
-        <ChevronRightIcon size={20} color={colors.textMuted} trigger={presses} />
-      </View>
-
+    <ProfileTile title={t('feeding.title')} onPress={isEmpty ? undefined : open}>
       {today.isPending ? (
         <ActivityIndicator color={colors.accent} />
       ) : hasAnything ? (
@@ -83,6 +65,6 @@ export function FeedingTile({ catId }: { catId: string }) {
           <Button title={t('feeding.setupSchedule')} variant="secondary" onPress={openSchedule} />
         </View>
       )}
-    </Pressable>
+    </ProfileTile>
   );
 }

@@ -149,7 +149,7 @@ export type Database = {
           amount_grams: number | null;
           cat_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           days_of_week: number[];
           enabled: boolean;
           food_id: string | null;
@@ -162,7 +162,7 @@ export type Database = {
           amount_grams?: number | null;
           cat_id: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           days_of_week?: number[];
           enabled?: boolean;
           food_id?: string | null;
@@ -175,7 +175,7 @@ export type Database = {
           amount_grams?: number | null;
           cat_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           days_of_week?: number[];
           enabled?: boolean;
           food_id?: string | null;
@@ -186,18 +186,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'feeding_schedule_food_id_cat_id_fkey';
-            columns: ['food_id', 'cat_id'];
-            isOneToOne: false;
-            referencedRelation: 'cat_foods';
-            referencedColumns: ['id', 'cat_id'];
-          },
-          {
             foreignKeyName: 'feeding_schedule_cat_id_fkey';
             columns: ['cat_id'];
             isOneToOne: false;
             referencedRelation: 'cats';
             referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'feeding_schedule_food_id_cat_id_fkey';
+            columns: ['food_id', 'cat_id'];
+            isOneToOne: false;
+            referencedRelation: 'cat_foods';
+            referencedColumns: ['id', 'cat_id'];
           },
         ];
       };
@@ -205,7 +205,7 @@ export type Database = {
         Row: {
           cat_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           kind: Database['public']['Enums']['litter_kind'];
           note: string | null;
@@ -214,7 +214,7 @@ export type Database = {
         Insert: {
           cat_id: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           kind: Database['public']['Enums']['litter_kind'];
           note?: string | null;
@@ -223,7 +223,7 @@ export type Database = {
         Update: {
           cat_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           kind?: Database['public']['Enums']['litter_kind'];
           note?: string | null;
@@ -244,7 +244,7 @@ export type Database = {
           amount_grams: number | null;
           cat_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           fed_at: string;
           food_id: string | null;
           food_name: string | null;
@@ -256,7 +256,7 @@ export type Database = {
           amount_grams?: number | null;
           cat_id: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           fed_at?: string;
           food_id?: string | null;
           food_name?: string | null;
@@ -268,7 +268,7 @@ export type Database = {
           amount_grams?: number | null;
           cat_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           fed_at?: string;
           food_id?: string | null;
           food_name?: string | null;
@@ -277,6 +277,13 @@ export type Database = {
           schedule_id?: string | null;
         };
         Relationships: [
+          {
+            foreignKeyName: 'meals_cat_id_fkey';
+            columns: ['cat_id'];
+            isOneToOne: false;
+            referencedRelation: 'cats';
+            referencedColumns: ['id'];
+          },
           {
             foreignKeyName: 'meals_food_id_cat_id_fkey';
             columns: ['food_id', 'cat_id'];
@@ -291,13 +298,6 @@ export type Database = {
             referencedRelation: 'feeding_schedule';
             referencedColumns: ['id', 'cat_id'];
           },
-          {
-            foreignKeyName: 'meals_cat_id_fkey';
-            columns: ['cat_id'];
-            isOneToOne: false;
-            referencedRelation: 'cats';
-            referencedColumns: ['id'];
-          },
         ];
       };
       notes: {
@@ -305,7 +305,7 @@ export type Database = {
           body: string;
           cat_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           noted_at: string;
           updated_at: string;
@@ -314,7 +314,7 @@ export type Database = {
           body: string;
           cat_id: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           noted_at?: string;
           updated_at?: string;
@@ -323,7 +323,7 @@ export type Database = {
           body?: string;
           cat_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           noted_at?: string;
           updated_at?: string;
@@ -343,7 +343,7 @@ export type Database = {
           caption: string | null;
           cat_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           mood: string | null;
           mood_caption: string | null;
@@ -354,7 +354,7 @@ export type Database = {
           caption?: string | null;
           cat_id: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           mood?: string | null;
           mood_caption?: string | null;
@@ -365,7 +365,7 @@ export type Database = {
           caption?: string | null;
           cat_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           mood?: string | null;
           mood_caption?: string | null;
@@ -422,7 +422,7 @@ export type Database = {
         Row: {
           cat_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           enabled: boolean;
           id: string;
           last_done_at: string | null;
@@ -437,7 +437,7 @@ export type Database = {
         Insert: {
           cat_id: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           enabled?: boolean;
           id?: string;
           last_done_at?: string | null;
@@ -452,7 +452,7 @@ export type Database = {
         Update: {
           cat_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           enabled?: boolean;
           id?: string;
           last_done_at?: string | null;
@@ -486,7 +486,7 @@ export type Database = {
           cat_id: string;
           clinic: string | null;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           next_due_on: string | null;
           note: string | null;
@@ -499,7 +499,7 @@ export type Database = {
           cat_id: string;
           clinic?: string | null;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           next_due_on?: string | null;
           note?: string | null;
@@ -512,7 +512,7 @@ export type Database = {
           cat_id?: string;
           clinic?: string | null;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           next_due_on?: string | null;
           note?: string | null;
@@ -535,7 +535,7 @@ export type Database = {
         Row: {
           cat_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           measured_at: string;
           note: string | null;
@@ -544,7 +544,7 @@ export type Database = {
         Insert: {
           cat_id: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           measured_at?: string;
           note?: string | null;
@@ -553,7 +553,7 @@ export type Database = {
         Update: {
           cat_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           measured_at?: string;
           note?: string | null;

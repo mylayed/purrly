@@ -6,6 +6,7 @@ export { Chip } from './chip';
 export { ConfirmDeleteButton } from './confirm-delete-button';
 export { EmptyState } from './empty-state';
 export { ErrorBanner } from './error-banner';
+export { ProfileTile } from './profile-tile';
 export { Screen } from './screen';
 export { ScreenHeader } from './screen-header';
 export { SegmentedControl, type SegmentedOption } from './segmented-control';

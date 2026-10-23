@@ -287,7 +287,7 @@
     "allDone": "All of today’s meals are checked off.",
     "eatenToday": "Eaten today: {{value}}",
     "noScheduleToday": "Nothing scheduled for today.",
-    "feed": "Fed",
+    "feed": "Feed",
     "fedAtA11y": "Fed at {{time}}",
     "undo": "Undo check-off",
     "undoConfirm": "Undo?",

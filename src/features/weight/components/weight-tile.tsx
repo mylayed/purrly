@@ -1,10 +1,9 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Pressable, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
-import { ChartLineIcon, ChevronRightIcon } from '@/components/icons';
-import { Button, StatusBanner, Text } from '@/components/ui';
+import { ChartLineIcon } from '@/components/icons';
+import { Button, ProfileTile, StatusBanner, Text } from '@/components/ui';
 import { weightChange } from '@/lib/weight';
 import { useTheme } from '@/theme';
 
@@ -17,10 +16,9 @@ const SPARKLINE_POINTS = 12;
 // Плитка на профілі кота: поточна вага, зміна за місяць, мініграфік.
 export function WeightTile({ catId }: { catId: string }) {
   const { t } = useTranslation();
-  const { colors, radii, spacing } = useTheme();
+  const { colors, spacing } = useTheme();
   const { data: weights, isPending } = useWeights(catId);
   const fmt = useWeightFormat();
-  const [presses, setPresses] = useState(0);
 
   const open = () => router.push({ pathname: '/cat/[id]/weight', params: { id: catId } });
   const latest = weights?.[weights.length - 1];
@@ -28,27 +26,11 @@ export function WeightTile({ catId }: { catId: string }) {
     ? weightChange(weights.map((w) => ({ measuredAt: w.measured_at, grams: w.weight_grams })))
     : null;
   const alert = change ? fmt.alert(change) : null;
+  // Порожня плитка має власну кнопку, тож сама не натискається.
+  const isEmpty = !isPending && !latest;
 
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={t('weight.title')}
-      onPressIn={() => setPresses((n) => n + 1)}
-      onPress={open}
-      style={({ pressed }) => ({
-        gap: spacing.md,
-        padding: spacing.lg,
-        borderRadius: radii.lg,
-        backgroundColor: pressed ? colors.accentSoft : colors.card,
-      })}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text variant="heading" style={{ flex: 1 }}>
-          {t('weight.title')}
-        </Text>
-        <ChevronRightIcon size={20} color={colors.textMuted} trigger={presses} />
-      </View>
-
+    <ProfileTile title={t('weight.title')} onPress={isEmpty ? undefined : open}>
       {isPending ? (
         <ActivityIndicator color={colors.accent} />
       ) : latest ? (
@@ -83,6 +65,6 @@ export function WeightTile({ catId }: { catId: string }) {
           <Button title={t('weight.add')} variant="secondary" onPress={open} />
         </View>
       )}
-    </Pressable>
+    </ProfileTile>
   );
 }

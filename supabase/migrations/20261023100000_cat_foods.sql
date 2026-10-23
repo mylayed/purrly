@@ -46,15 +46,15 @@ create index feeding_schedule_food_idx on public.feeding_schedule (food_id) wher
 alter table public.cat_foods enable row level security;
 
 create policy "cat_foods: read as member" on public.cat_foods
-for select to authenticated using (public.is_cat_member(cat_id));
+for select to authenticated using (private.is_cat_member(cat_id));
 
 create policy "cat_foods: create as member" on public.cat_foods
 for insert to authenticated
-with check (public.is_cat_member(cat_id) and created_by = (select auth.uid()));
+with check (private.is_cat_member(cat_id) and created_by = (select auth.uid()));
 
 create policy "cat_foods: update as member" on public.cat_foods
 for update to authenticated
-using (public.is_cat_member(cat_id)) with check (public.is_cat_member(cat_id));
+using (private.is_cat_member(cat_id)) with check (private.is_cat_member(cat_id));
 
 create policy "cat_foods: delete as member" on public.cat_foods
-for delete to authenticated using (public.is_cat_member(cat_id));
+for delete to authenticated using (private.is_cat_member(cat_id));

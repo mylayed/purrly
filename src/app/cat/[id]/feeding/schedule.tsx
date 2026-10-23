@@ -182,6 +182,9 @@ function SlotCard({
         trackColor={{ false: colors.border, true: colors.accent }}
         thumbColor={colors.card}
         ios_backgroundColor={colors.border}
+        // react-native-web бере колір увімкненого повзунка лише з activeThumbColor,
+        // якого немає в типах React Native.
+        {...({ activeThumbColor: colors.card } as object)}
       />
       <ConfirmDeleteButton
         label={t('feeding.schedule.delete')}
